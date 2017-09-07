@@ -104,16 +104,20 @@ public class API {
     public static String getTempManage = "freezer/app/queHumitureManageJson.html";
     public static String getColdManage = "freezer/app/queHumiture8ManageJson.html";
     public static String getFridgeManage = "freezer/app/queHumiturePT100ManageJson.html";
+    public static String getRefiiferTempManage = "freezer/app/queGPRSManageJson.html";
     public static String edtTemp = "freezer/app/updHumitureManageInfo.html";
     public static String edtCold = "freezer/app/udpHumiture8ManageJson.html";
     public static String edtFridge = "freezer/app/udpHumiturePT100ManageJson.html";
+    public static String edtReFridge = "freezer/app/updateGPRSDeviceJson.html";
 
     public static String addTemp = "freezer/app/addHumitureManageInfo.html";
     public static String addCold = "freezer/app/addHumiture8ManageJson.html";
     public static String addFridge = "freezer/app/addHumiturePT100ManageJson.html";
+    public static String addReFridge = "freezer/app/addGPRSDeviceJson.html";
     public static String delTemp = "freezer/app/delHumitureManageInfo.html";
     public static String delCold = "freezer/app/delHumiture8ManageJson.html";
     public static String delFridge = "freezer/app/delHumiturePT100ManageJson.html";
+    public static String delReFridge = "freezer/app/delGPRSDeviceJson.html";
 
     public static String getTempIP = "freezer/app/queIpJson.html";
     public static String getTemplocations = "freezer/app/queLocationJson.html";

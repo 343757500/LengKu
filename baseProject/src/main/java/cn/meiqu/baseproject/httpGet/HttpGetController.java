@@ -781,6 +781,10 @@ public class HttpGetController {
         post(API.getFridgeManage, getTokenBuild(), className);
     }
 
+    public void getReFridgeManageList(String className) {
+        post(API.getRefiiferTempManage, getTokenBuild(), className);
+    }
+
     public void addTempManage(String deviceAddress, String deviceLocation, String ipAddress, String deviceName, String maxTemp, String minTemp, String maxHum, String minHum, String interval, String className) {
         StringBuilder param = new StringBuilder();
         param.append("deviceAddress=" + deviceAddress).append("&");

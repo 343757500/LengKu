@@ -143,6 +143,11 @@ public class HttpGetController {
         post(API.getFreezerManage, getTokenBuild(), className);
     }
 
+
+    public void getRefrigertorReal(String className) {
+        post(API.getGetRefrigeratorRealManage, getTokenBuild(), className);
+    }
+
     public void getFridgeReal(String className) {
         post(API.getFridgeReal, getTokenBuild(), className);
     }
@@ -394,6 +399,9 @@ public class HttpGetController {
         param.append("endTime=" + endTime);
         get(API.getTempAlart, param.toString(), className);
     }
+
+
+
 
     public void getNoLocationWaterAlart(String deviceId, String startTime, String endTime, String className) {
         StringBuilder param = new StringBuilder();
@@ -820,6 +828,11 @@ public class HttpGetController {
     public void edtColdManage(String className,String key,String value) {
         post(API.edtCold, getBuild(key,value), className,key,value);
        // post(API.edtCold,s,className);
+    }
+
+    public void getLogMessage(String className, String key,String value) {
+
+        post(API.requestLogMessageUrl, getBuild(key,value), className,key,value);
     }
 
     public void edtFridgeManage(String className,String key,String value) {

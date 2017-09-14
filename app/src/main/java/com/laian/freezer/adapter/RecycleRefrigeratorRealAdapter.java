@@ -7,7 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.laian.freezer.R;
-import com.laian.freezer.bean.FridgeReal;
+import com.laian.freezer.bean.Freezers;
+import com.laian.freezer.bean.RefrigeratorReal;
 
 import java.util.ArrayList;
 
@@ -17,14 +18,14 @@ import cn.meiqu.baseproject.baseRecycle.BaseOnRecycleClickListener;
 import cn.meiqu.baseproject.view.RippleView;
 
 /**
- * Created by Administrator on 2017/8/24.
+ * Created by zsp on 2017/8/19.
  */
 
-public class RecycleFridgeRealAdapter extends BaseRecycleAdapter {
+public class RecycleRefrigeratorRealAdapter extends BaseRecycleAdapter {
     private Context mContent;
-    private ArrayList<FridgeReal.EhmListBean> ehmList;
+    private ArrayList<RefrigeratorReal.EhmListBean> ehmList;
 
-    public RecycleFridgeRealAdapter(Context mContent, ArrayList<FridgeReal.EhmListBean> ehmList) {
+    public RecycleRefrigeratorRealAdapter(Context mContent, ArrayList<RefrigeratorReal.EhmListBean> ehmList) {
 
         this.mContent = mContent;
         this.ehmList = ehmList;
@@ -43,12 +44,12 @@ public class RecycleFridgeRealAdapter extends BaseRecycleAdapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new RecycleFridgeRealAdapter.Holder(View.inflate(mContent, R.layout.recycle_refrigerator_real, null));
+        return new RecycleRefrigeratorRealAdapter.Holder(View.inflate(mContent, R.layout.recycle_refrigerator_real, null));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((RecycleFridgeRealAdapter.Holder) holder).instanceView(position);
+        ((RecycleRefrigeratorRealAdapter.Holder) holder).instanceView(position);
     }
 
     @Override
@@ -69,25 +70,29 @@ public class RecycleFridgeRealAdapter extends BaseRecycleAdapter {
         public void assignViews() {
             mTvName = (TextView) findViewById(R.id.tv_name);
             mTvTemp = (TextView) findViewById(R.id.tv_temp);
-            mTvWet = (TextView) findViewById(R.id.tv_wet);
+          //  mTvWet = (TextView) findViewById(R.id.tv_wet);
         }
 
         @Override
         public void instanceView(final int position) {
 
-            mTvName.setText(ehmList.get(position).getEhmName() + "");
-            mTvTemp.setText(ehmList.get(position).getGallery() + "℃");
-            //mTvWet.setText(ehmList.get(position).getEhmHum() + "%");
-            if (ehmList.get(position).getEhmTemp() >= ehmList.get(position).getEhmMinTemp() && ehmList.get(position).getEhmTemp() <= ehmList.get(position).getEhmMaxTemp()) {
-                mTvTemp.setBackgroundColor(mTvTemp.getResources().getColor(R.color.colorPrimary));
-            } else {
-                mTvTemp.setBackgroundColor(mTvTemp.getResources().getColor(R.color.red));
-            }
+            if (ehmList.size()>0) {
+                mTvName.setText(ehmList.get(position).getEhmName() + "");
+                mTvTemp.setText(ehmList.get(position).getEhmTemp() + "℃");
+               // mTvWet.setText(ehmList.get(position).getEhmHum() + "%");
+                if (ehmList.get(position).getEhmTemp() >= ehmList.get(position).getEhmMinTemp() && ehmList.get(position).getEhmTemp() <= ehmList.get(position).getEhmMaxTemp()) {
+                    mTvTemp.setBackgroundColor(mTvTemp.getResources().getColor(R.color.colorPrimary));
+                } else {
+                    mTvTemp.setBackgroundColor(mTvTemp.getResources().getColor(R.color.red));
+                }
 
-            if (ehmList.get(position).getEhmHum() >= ehmList.get(position).getEhmMinHum() && ehmList.get(position).getEhmTemp() <= ehmList.get(position).getEhmMaxHum()) {
-               // mTvWet.setBackgroundColor(mTvTemp.getResources().getColor(R.color.colorPrimary));
-            } else {
-               // mTvWet.setBackgroundColor(mTvTemp.getResources().getColor(R.color.red));
+                if (ehmList.get(position).getEhmHum() >= ehmList.get(position).getEhmMinHum() && ehmList.get(position).getEhmHum() <= ehmList.get(position).getEhmMaxHum()) {
+                 //   mTvWet.setBackgroundColor(mTvTemp.getResources().getColor(R.color.colorPrimary));
+                } else {
+               //     mTvWet.setBackgroundColor(mTvTemp.getResources().getColor(R.color.red));
+                }
+            }else{
+
             }
         }
 

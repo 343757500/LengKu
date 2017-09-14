@@ -7,7 +7,7 @@ import android.util.Log;
 import com.laian.freezer.R;
 import com.laian.freezer.fragment.FragmentControl;
 import com.laian.freezer.fragment.enviroment.FragmentEnv;
-import com.laian.freezer.fragment.FragmentSystem;
+import com.laian.freezer.fragment.system.FragmentSystem;
 
 import cn.meiqu.baseproject.baseUi.BaseActivity;
 
@@ -55,7 +55,7 @@ public class ControlActivity extends BaseActivity {
         }
 
         if(pId.equals("6")){
-            //系统管路
+            //系统管理
             f = new FragmentSystem();
         }
 //        //环境监控

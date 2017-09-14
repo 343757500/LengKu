@@ -122,8 +122,17 @@ public class HomeFragment extends BaseFragment {
             for (int i = 0; i < homePages.size(); i++) {
                 fragments.add(MainFragment.newInstance(homePages.get(i).getNumber() + ""));
                 titles[i] = homePages.get(i).getName();
+
+
+                SettingDao.getInstance().setStringArray("title",titles[i]);
+
+
             }
+
+
         }
+
+
         adapter.notifyDataSetChanged();
     }
 

@@ -6,6 +6,10 @@ import android.content.SharedPreferences.Editor;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import cn.meiqu.baseproject.baseUi.BaseApp;
 import cn.meiqu.baseproject.bean.User;
 
@@ -21,6 +25,7 @@ public class SettingDao {
     private String hostAddr = "hostAddr";
     private String isLogined = "isLogined";
     private String homePageJson = "homePageJson";
+    private Set set=new HashSet();
 
     private SettingDao() {
     }
@@ -41,6 +46,20 @@ public class SettingDao {
         Editor editor = getPreferences().edit();
         editor.putString(key, value);
         editor.commit();
+    }
+
+    public void setStringArray(String key, String value) {
+        Editor editor = getPreferences().edit();
+        set.add(value);
+        editor.putStringSet(key, set);
+        editor.commit();
+    }
+
+    public Set getStringArray(String key) {
+        Editor editor = getPreferences().edit();
+        Set stringSet = getPreferences().getStringSet(key, set);
+        editor.commit();
+        return stringSet;
     }
 
     public void set(String key, boolean value) {

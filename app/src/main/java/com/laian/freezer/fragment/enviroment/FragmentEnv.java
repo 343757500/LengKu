@@ -11,6 +11,7 @@ import com.laian.freezer.fragment.enviroment.constanttemperature.FragmentTempCha
 import com.laian.freezer.fragment.enviroment.constanttemperature.FragmentTempReal;
 import com.laian.freezer.fragment.enviroment.fridge.FragmentFridgeAlert;
 import com.laian.freezer.fragment.enviroment.fridge.FragmentFridgeReal;
+import com.laian.freezer.fragment.enviroment.refrigerator.FragmentRefrigeratorReal;
 import com.laian.freezer.fragment.enviroment.refrigeratorcar.FragmentRefrigerAlert;
 import com.laian.freezer.fragment.enviroment.refrigeratorcar.FragmentRefrigerReal;
 import com.laian.freezer.fragment.freezer.FragementFreezerManage;
@@ -79,11 +80,11 @@ public class FragmentEnv extends FragmentControl {
         if (number2.equals("16")) {
             //冰箱
             if (thirdPages.size() >= 1)
-                fragments.add(new FragmentTempReal());
+                fragments.add(new FragmentRefrigeratorReal());
             if (thirdPages.size() >= 2)
-                fragments.add(new FragmentTempAlert());
+               // fragments.add(new FragmentTempAlert());
             if (thirdPages.size() >= 3)
-                fragments.add(new FragmentTempChart());
+              //  fragments.add(new FragmentTempChart());
             if (thirdPages.size() >= 4)
                 fragments.add(new FragmentTempAlert.FragmentTempManage());
         }

@@ -123,6 +123,9 @@ public class API {
     public static String getTemplocations = "freezer/app/queLocationJson.html";
 
     public static String getFreezerManage = "freezer/app/queHumiture8ManageJson.html";
+    public static String getGetRefrigeratorRealManage = "freezer/app/queIceboxManageJson.html";
+
+
     public static String addFreezerMachine = "freezer/app/addHumiture8ManageJson.html";
     public static String updateFreezerMachine = "freezer/app/udpHumiture8ManageJson.html";
     public static String deleteFreezerMachine = "freezer/app/delHumiture8ManageJson.html";
@@ -193,6 +196,8 @@ public class API {
     public static String showCurrentLoginUserUrl = "freezer/app/showCurrentLoginUserJson.html";
     //更新管理员
     public static String updateLoginUserUrl = "freezer/app/updCurrentLoginUserJson.html";
+
+    public static String requestLogMessageUrl = "freezer/app/queSystemLogDataJson.html";
 
     //精密空调发送控制
     public static String kgjStateOpenUrl = "freezer/app/opencracJson.html";

@@ -31,7 +31,7 @@ import cn.meiqu.baseproject.util.LogUtil;
 import cn.meiqu.baseproject.util.StringUtil;
 
 /**
- * Created by Administrator on 2017/5/26.
+ * Created by zsp on 2017/5/26.
  */
 
 public class HomeFragment extends BaseFragment {

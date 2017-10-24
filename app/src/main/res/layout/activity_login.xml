@@ -110,7 +110,7 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:background="@drawable/bg_rect_round_coloraccent"
+                    android:background="@color/colorPrimaryDark"
                     android:gravity="center"
                     android:text="登录"
                     android:textColor="@color/white"

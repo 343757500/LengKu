@@ -63,6 +63,17 @@ public class HttpGetController {
         HttpGetBase.newInstance().post(uri, body, action,key,value);
     }
 
+    private void post(final String uri,FormBody body, final String action,String key,String value,String key1,String value1) {
+//        BaseApp.mHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                //LogUtil.log("------" + uri + "---" + params + "" + action+responController);
+//                HttpGetBase.newInstance().post(uri, params, action, responController);
+//            }
+//        }, 2 * 100);
+        HttpGetBase.newInstance().post(uri, body, action,key,value,key1,value1);
+    }
+
     //    public RequestParams getTokenParma() {
 //        RequestParams params = new RequestParams();
 //        User user = SettingDao.getInstance().getUser();
@@ -125,9 +136,8 @@ public class HttpGetController {
         post(API.getHomeChildPage, builder, className);
     }
 
-    public void getHomeChildThirdPage(String number1, String number2, String className) {
+    public void getHomeChildThirdPage(String number2, String className) {
         FormEncodingBuilder builder = getTokenBuild();
-        builder.add("number1", number1);
         builder.add("number2", number2);
         post(API.getHomeChildThirdPage, builder, className);
     }
@@ -390,6 +400,14 @@ public class HttpGetController {
         param.append("startTime=" + startTime).append("&");
         param.append("endTime=" + endTime);
         get(API.getTempAlart, param.toString(), className);
+    }
+
+    public void getFridgeratorAlart(String deviceId, String startTime, String endTime, String className) {
+        StringBuilder param = new StringBuilder();
+        param.append("deviceId=" + deviceId).append("&");
+        param.append("startTime=" + startTime).append("&");
+        param.append("endTime=" + endTime);
+        get(API.getFridgeatorAlart, param.toString(), className);
     }
 
     public void getTempAlart(String deviceId, String startTime, String endTime, String className) {
@@ -789,6 +807,10 @@ public class HttpGetController {
         post(API.getFridgeManage, getTokenBuild(), className);
     }
 
+    public void getFridgetorManageList(String className) {
+        post(API.getFridgeratorManage, getTokenBuild(), className);
+    }
+
     public void getReFridgeManageList(String className) {
         post(API.getRefiiferTempManage, getTokenBuild(), className);
     }
@@ -807,8 +829,18 @@ public class HttpGetController {
         get(API.addTemp, param.toString(), className);
     }
 
+    public void addFridgeManage(String className,String key,String value) {
+        post(API.addFridge, getBuild(key,value), className,key,value);
+        // post(API.edtCold,s,className);
+    }
+
     public void addColdManage(String className,String key,String value) {
         post(API.addCold, getBuild(key,value), className,key,value);
+        // post(API.edtCold,s,className);
+    }
+
+    public void addFrageratorManage(String className,String key,String value) {
+        post(API.addRefrigertorTemp, getBuild(key,value), className,key,value);
         // post(API.edtCold,s,className);
     }
 
@@ -835,8 +867,18 @@ public class HttpGetController {
         post(API.requestLogMessageUrl, getBuild(key,value), className,key,value);
     }
 
+    public void getQuestLogMessage(String className, String key,String value,String key1,String value1) {
+        String params = getBuild(key, value) + "&" + getBuild("params", value1);
+        post(API.requestLogMessageUrl, getBuild(key,value), className,key,value,key1,value1);
+    }
+
     public void edtFridgeManage(String className,String key,String value) {
         post(API.edtFridge, getBuild(key,value), className,key,value);
+        // post(API.edtCold,s,className);
+    }
+
+    public void edtFridgetorManage(String className,String key,String value) {
+        post(API.edtFridgetor, getBuild(key,value), className,key,value);
         // post(API.edtCold,s,className);
     }
 
@@ -861,10 +903,27 @@ public class HttpGetController {
         get(API.delFridge, param.toString(), className);
     }
 
-
-    public void getTempIpList(String className) {
-        post(API.getTempIP, getTokenBuild(), className);
+    public void delFridgertorManage(String id, String ip, String className) {
+        StringBuilder param = new StringBuilder();
+        param.append("id=" + id).append("&");
+        param.append("ip=" + ip);
+        get(API.delFridgerator, param.toString(), className);
     }
+
+
+    public void getTempIpList(String className,String number2) {
+        FormEncodingBuilder builder = getTokenBuild();
+        builder.add("number", number2);
+        post(API.getTempIP, builder, className);
+    }
+    public void getHomeChildThirdPage(String number1, String number2, String className) {
+        FormEncodingBuilder builder = getTokenBuild();
+        builder.add("number1", number1);
+        builder.add("number2", number2);
+        post(API.getHomeChildThirdPage, builder, className);
+    }
+
+
 
     public void getTempLocationsList(String className) {
         post(API.getTemplocations, getTokenBuild(), className);

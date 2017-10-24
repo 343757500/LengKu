@@ -26,6 +26,8 @@ import cn.meiqu.baseproject.API;
 import cn.meiqu.baseproject.httpGet.HttpGetController;
 import cn.meiqu.baseproject.util.StringUtil;
 
+import static com.laian.freezer.fragment.FragmentControl.number2;
+
 /**
  * Created by Administrator on 2017/8/4.
  */
@@ -96,7 +98,7 @@ public class FragementFreezerManage extends FragmentAlert implements RecycleTemp
     }
 
     public void requestIps() {
-        HttpGetController.getInstance().getTempIpList(className);
+        HttpGetController.getInstance().getTempIpList(className,number2);
     }
 
     public void handleIps(String data) {

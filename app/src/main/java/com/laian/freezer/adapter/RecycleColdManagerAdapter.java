@@ -22,12 +22,48 @@ public class RecycleColdManagerAdapter extends BaseRecycleAdapter {
     private Context mContent;
     ArrayList<ColdAlart.EhmListBean> ehmList=new ArrayList<>();
 
+    private View mHeaderView;
+
+
+    public static final int TYPE_HEADER = 0;
+    public static final int TYPE_NORMAL = 1;
+
     public interface OnItemClickListner {
         public void onItemDel(int position);
 
         public void onItemEdit(int position);
 
     }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        if(mHeaderView == null) return TYPE_NORMAL;
+        if(position == 0) return TYPE_HEADER;
+        return TYPE_NORMAL;
+    }
+
+
+
+    public void setHeaderView(View headerView) {
+        mHeaderView = headerView;
+        notifyItemInserted(0);
+    }
+
+    public View getHeaderView() {
+        return mHeaderView;
+    }
+
+
+
+
+
+/*    public interface OnItemClickListner {
+        public void onItemDel(int position);
+
+        public void onItemEdit(int position);
+
+    }*/
 
     public OnItemClickListner getOnItemClickListner() {
         return onItemClickListner;
@@ -46,25 +82,37 @@ public class RecycleColdManagerAdapter extends BaseRecycleAdapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new Holder(View.inflate(mContent, R.layout.recycle_temp_manage, null));
+
+        if(mHeaderView != null && viewType == TYPE_HEADER) {
+            return new Holder(mHeaderView);
+        }else {
+            return new Holder(View.inflate(mContent, R.layout.recycle_temp_manage, null));
+        }
+
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((Holder)holder).instanceView(position);
+
+        if (getItemViewType(position)==TYPE_HEADER){
+            return;
+        }
+        int  pos = getRealPosition(holder);
+        ((Holder) holder).instanceView(pos);
+
+    }
+
+    public int getRealPosition(RecyclerView.ViewHolder holder) {
+        int position = holder.getLayoutPosition();
+        return mHeaderView == null ? position : position - 1;
     }
 
     @Override
     public int getItemCount() {
-       return ehmList.size();
+        return mHeaderView == null ? ehmList.size() : ehmList.size() + 1;
     }
 
     class Holder extends BaseHolder implements View.OnClickListener {
-        public Holder(View itemView) {
-            super(itemView);
-            itemView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        }
-
         private TextView mTvAddr;
         private TextView mTvLocationName;
         private TextView mTvName;
@@ -77,7 +125,12 @@ public class RecycleColdManagerAdapter extends BaseRecycleAdapter {
         private TextView mTvEdt;
         private TextView mTvDel;
 
-        public void assignViews() {
+        public Holder(View itemView) {
+            super(itemView);
+            itemView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            if (itemView==mHeaderView){
+                return;
+            }
             mTvAddr = (TextView) findViewById(R.id.tv_addr);
             mTvLocationName = (TextView) findViewById(R.id.tv_locationName);
             mTvName = (TextView) findViewById(R.id.tv_name);
@@ -108,27 +161,34 @@ public class RecycleColdManagerAdapter extends BaseRecycleAdapter {
         }
 
 
+
+        public void assignViews() {
+
+        }
+
+
         @Override
         public void instanceView(final int position) {
-            if (position % 2 == 0) {
-                itemView.setBackgroundColor(mTvName.getResources().getColor(R.color.white));
-            } else {
-                itemView.setBackgroundColor(mTvName.getResources().getColor(R.color.item_bg));
-            }
-            if (ehmList!=null){
-                mTvAddr.setText("" + ehmList.get(position).getEhmAddress());
-            String dlName = ehmList.get(position).getDeviceLocationPojo().getDlName();
-            mTvLocationName.setText("" + dlName);
-            mTvName.setText("" + ehmList.get(position).getEhmName());
-            mTvIp.setText("" + ehmList.get(position).getIpPort());
-            mTvMaxTemp.setText("" + ehmList.get(position).getEhmMaxTemp());
-            mTvMinTemp.setText("" + ehmList.get(position).getEhmMinTemp());
-            mTvMaxHum.setText("" + ehmList.get(position).getEhmMaxHum());
-            mTvMinHum.setText("" + ehmList.get(position).getEhmMinHum());
-            mTvInterval.setText("" + ehmList.get(position).getEhmInterval());
-            }
+            if (mHeaderView!=itemView ) {
+                if (position % 2 == 0) {
+                    itemView.setBackgroundColor(mTvName.getResources().getColor(R.color.white));
+                } else {
+                    itemView.setBackgroundColor(mTvName.getResources().getColor(R.color.item_bg));
+                }
+                if (ehmList != null) {
+                    mTvAddr.setText("" + ehmList.get(position).getEhmAddress());
+                    String dlName = ehmList.get(position).getDeviceLocationPojo().getDlName();
+                    mTvLocationName.setText("" + dlName);
+                    mTvName.setText("" + ehmList.get(position).getEhmName());
+                    mTvIp.setText("" + ehmList.get(position).getIpPort());
+                    mTvMaxTemp.setText("" + ehmList.get(position).getEhmMaxTemp());
+                    mTvMinTemp.setText("" + ehmList.get(position).getEhmMinTemp());
+                    mTvMaxHum.setText("" + ehmList.get(position).getEhmMaxHum());
+                    mTvMinHum.setText("" + ehmList.get(position).getEhmMinHum());
+                    mTvInterval.setText("" + ehmList.get(position).getEhmInterval());
+                }
 
-
+            }
 
 
         }
@@ -137,9 +197,9 @@ public class RecycleColdManagerAdapter extends BaseRecycleAdapter {
         public void onClick(View v) {
             if (getOnItemClickListner() != null) {
                 if (v.getId() == mTvEdt.getId()) {
-                    getOnItemClickListner().onItemEdit(getPosition());
+                    getOnItemClickListner().onItemEdit(getPosition()-1);
                 } else if (v.getId() == mTvDel.getId()) {
-                    getOnItemClickListner().onItemDel(getPosition());
+                    getOnItemClickListner().onItemDel(getPosition()-1);
                 }
             }
         }

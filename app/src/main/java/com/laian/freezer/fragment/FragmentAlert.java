@@ -16,6 +16,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.laian.freezer.R;
+import com.laian.freezer.view.NewHorizontalScrollView;
+import com.laian.freezer.view.NoSuperRecycleView;
 
 import java.util.Calendar;
 
@@ -30,10 +32,10 @@ import cn.meiqu.baseproject.view.superrecyclerview.SuperRecyclerView;
  */
 public abstract class FragmentAlert extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
     public String className = getClass().getName() + Math.random() * 10000;
-    public SuperRecyclerView mRecycleV;
+    public NoSuperRecycleView mRecycleV;
     public FloatingActionButton mFab;
     public ViewGroup viewGBody;
-
+    private NewHorizontalScrollView newHorizontalScrollView;
     public abstract RecyclerView.Adapter getAdapter();
 
     public abstract View getTopView();
@@ -81,10 +83,12 @@ public abstract class FragmentAlert extends BaseFragment implements SwipeRefresh
     private void assignViews() {
         mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFab.setOnClickListener(this);
+
+        newHorizontalScrollView = (NewHorizontalScrollView) findViewById(R.id.scroll_view);
         //
         viewGBody = (ViewGroup) findViewById(R.id.lin_top);
         viewGBody.addView(getTopView(), 1);
-        mRecycleV = (SuperRecyclerView) findViewById(R.id.recycleV);
+        mRecycleV = (NoSuperRecycleView) findViewById(R.id.recycleV);
         mRecycleV.setRefreshListener(this);
         mRecycleV.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecycleV.setOnMoreListener(null);

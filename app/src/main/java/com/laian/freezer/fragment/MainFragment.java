@@ -19,6 +19,7 @@ import com.laian.freezer.bean.HomePage;
 import java.util.ArrayList;
 import cn.meiqu.baseproject.API;
 import cn.meiqu.baseproject.adapter.BaseRecycleAdapter;
+import cn.meiqu.baseproject.baseRecycle.BaseOnRecycleClickListener;
 import cn.meiqu.baseproject.baseUi.BaseActivity;
 import cn.meiqu.baseproject.baseUi.BaseFragment;
 import cn.meiqu.baseproject.httpGet.HttpGetController;
@@ -27,7 +28,7 @@ import cn.meiqu.baseproject.httpGet.HttpGetController;
 /**
  * Created by Fatel on 16-5-24.
  */
-public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseRecycleAdapter.ItemClickListener{
+public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseOnRecycleClickListener {
 
     String className = getClass().getName() + Math.random() * 10000;
     String action_getHomeChildPage = className + API.getHomeChildPage;
@@ -59,7 +60,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         adapter = new RecycleHomeAdapter(getActivity(), homePages);
         mRecycleV.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         mRecycleV.setAdapter(adapter);
-        adapter.setOnItemClickListner(this);
+        adapter.setClickListener(this);
     }
 
     @Override
@@ -115,9 +116,9 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
 
+
     @Override
-    public void OnItemClick(View view, int position) {
-        //点击监听
+    public void OnRecycleItemClick(int position) {
         HomePage homePage = homePages.get(position);
         if (homePage.getNumber() == -1) {
             ((BaseActivity) getActivity()).jump(IpSettingActivity.class);

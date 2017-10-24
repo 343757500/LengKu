@@ -42,6 +42,8 @@
         <item name="android:background">@drawable/bg_list_select</item>
     </style>
 
+    <!--首页全屏沉侵式状态栏-->
+    <style name="FullImmerseMode" parent="BaseTheme"/>
 
     <!-- as we can create some text style -->
 

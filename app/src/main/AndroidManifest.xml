@@ -17,11 +17,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.IpSettingActivity"/>
-        <activity android:name=".activity.LoginActivity"/>
-        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.IpSettingActivity"
+            android:theme="@style/BaseTheme"/>
+        <activity android:name=".activity.LoginActivity"
+            android:theme="@style/BaseTheme"/>
+        <activity android:name=".activity.MainActivity"
+            android:theme="@style/BaseTheme"/>
         <activity android:name=".activity.SettingActivity"/>
-        <activity android:name=".activity.ControlActivity"/>
+        <activity android:name=".activity.ControlActivity"
+            android:theme="@style/BaseTheme"/>
+
+        <activity android:name=".activity.PersonalInfomationActivity"></activity>
+        <activity android:name=".activity.InformationChangeActivity"/>
+
     </application>
 
 </manifest>

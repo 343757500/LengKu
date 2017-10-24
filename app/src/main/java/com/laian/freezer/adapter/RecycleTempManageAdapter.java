@@ -20,12 +20,50 @@ public class RecycleTempManageAdapter extends BaseRecycleAdapter {
     private Context mContent;
     private ArrayList<TempReal> TempReals;
 
+
+    private View mHeaderView;
+
+
+    public static final int TYPE_HEADER = 0;
+    public static final int TYPE_NORMAL = 1;
+
     public interface OnItemClickListner {
         public void onItemDel(int position);
 
         public void onItemEdit(int position);
 
     }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        if(mHeaderView == null) return TYPE_NORMAL;
+        if(position == 0) return TYPE_HEADER;
+        return TYPE_NORMAL;
+    }
+
+
+
+    public void setHeaderView(View headerView) {
+        mHeaderView = headerView;
+        notifyItemInserted(0);
+    }
+
+    public View getHeaderView() {
+        return mHeaderView;
+    }
+
+
+
+
+
+
+ /*   public interface OnItemClickListner {
+        public void onItemDel(int position);
+
+        public void onItemEdit(int position);
+
+    }*/
 
     public OnItemClickListner getOnItemClickListner() {
         return onItemClickListner;
@@ -45,25 +83,36 @@ public class RecycleTempManageAdapter extends BaseRecycleAdapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new Holder(View.inflate(mContent, R.layout.recycle_temp_manage, null));
+
+        if(mHeaderView != null && viewType == TYPE_HEADER) {
+            return new Holder(mHeaderView);
+        }else {
+            return new Holder(View.inflate(mContent, R.layout.recycle_temp_manage, null));
+        }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((Holder) holder).instanceView(position);
+
+        if (getItemViewType(position)==TYPE_HEADER){
+            return;
+        }
+        int  pos = getRealPosition(holder);
+        ((Holder) holder).instanceView(pos);
+    }
+
+    public int getRealPosition(RecyclerView.ViewHolder holder) {
+        int position = holder.getLayoutPosition();
+        return mHeaderView == null ? position : position - 1;
     }
 
     @Override
     public int getItemCount() {
-        return TempReals.size();
+
+        return mHeaderView == null ? TempReals.size() : TempReals.size() + 1;
     }
 
     class Holder extends BaseHolder implements View.OnClickListener {
-        public Holder(View itemView) {
-            super(itemView);
-            itemView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        }
-
         private TextView mTvAddr;
         private TextView mTvLocationName;
         private TextView mTvName;
@@ -76,7 +125,13 @@ public class RecycleTempManageAdapter extends BaseRecycleAdapter {
         private TextView mTvEdt;
         private TextView mTvDel;
 
-        public void assignViews() {
+
+        public Holder(View itemView) {
+            super(itemView);
+            itemView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            if (itemView==mHeaderView){
+                return;
+            }
             mTvAddr = (TextView) findViewById(R.id.tv_addr);
             mTvLocationName = (TextView) findViewById(R.id.tv_locationName);
             mTvName = (TextView) findViewById(R.id.tv_name);
@@ -107,33 +162,40 @@ public class RecycleTempManageAdapter extends BaseRecycleAdapter {
         }
 
 
+
+        public void assignViews() {
+
+        }
+
+
         @Override
         public void instanceView(final int position) {
-            if (position % 2 == 0) {
-                itemView.setBackgroundColor(mTvName.getResources().getColor(R.color.white));
-            } else {
-                itemView.setBackgroundColor(mTvName.getResources().getColor(R.color.item_bg));
+            if (mHeaderView!=itemView ) {
+                if (position % 2 == 0) {
+                    itemView.setBackgroundColor(mTvName.getResources().getColor(R.color.white));
+                } else {
+                    itemView.setBackgroundColor(mTvName.getResources().getColor(R.color.item_bg));
+                }
+                TempReal TempReal = TempReals.get(position);
+                mTvAddr.setText("" + TempReal.getEhmAddress());
+                mTvLocationName.setText("" + TempReal.getDeviceLocationPojo().getDlName());
+                mTvName.setText("" + TempReal.getEhmName());
+                mTvIp.setText("" + TempReal.getIpPort());
+                mTvMaxTemp.setText("" + TempReal.getEhmMaxTemp());
+                mTvMinTemp.setText("" + TempReal.getEhmMinTemp());
+                mTvMaxHum.setText("" + TempReal.getEhmMaxHum());
+                mTvMinHum.setText("" + TempReal.getEhmMinHum());
+                mTvInterval.setText("" + TempReal.getEhmInterval());
             }
-            TempReal TempReal = TempReals.get(position);
-            mTvAddr.setText("" + TempReal.getEhmAddress());
-            mTvLocationName.setText("" + TempReal.getDeviceLocationPojo().getDlName());
-            mTvName.setText("" + TempReal.getEhmName());
-            mTvIp.setText("" + TempReal.getIpPort());
-            mTvMaxTemp.setText("" + TempReal.getEhmMaxTemp());
-            mTvMinTemp.setText("" + TempReal.getEhmMinTemp());
-            mTvMaxHum.setText("" + TempReal.getEhmMaxHum());
-            mTvMinHum.setText("" + TempReal.getEhmMinHum());
-            mTvInterval.setText("" + TempReal.getEhmInterval());
-
         }
 
         @Override
         public void onClick(View v) {
             if (getOnItemClickListner() != null) {
                 if (v.getId() == mTvEdt.getId()) {
-                    getOnItemClickListner().onItemEdit(getPosition());
+                    getOnItemClickListner().onItemEdit(getPosition()-1);
                 } else if (v.getId() == mTvDel.getId()) {
-                    getOnItemClickListner().onItemDel(getPosition());
+                    getOnItemClickListner().onItemDel(getPosition()-1);
                 }
             }
         }

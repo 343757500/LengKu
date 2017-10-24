@@ -19,6 +19,7 @@ import com.laian.freezer.R;
 import com.laian.freezer.activity.IpSettingActivity;
 import com.laian.freezer.adapter.PagerHomeAdapter;
 import com.laian.freezer.bean.HomePage;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,13 +102,15 @@ public class HomeFragment extends BaseFragment {
 
     private void initPager() {
         adapter = new PagerHomeAdapter(getFragmentManager(), fragments, titles);
-        mViewP.setAdapter(adapter);
+
         mTabL.setupWithViewPager(mViewP);
-        mTabL.setTabTextColors(getResources().getColor(R.color.color_gravy), getResources().getColor(R.color.black));//设置文本在选中和为选中时候的颜色
-        mTabL.setSelectedTabIndicatorColor(getResources().getColor(R.color.black));//设置指示器的颜色
+        mTabL.setTabTextColors(getResources().getColor(R.color.color_gravy), getResources().getColor(R.color.colorPrimaryDark));//设置文本在选中和为选中时候的颜色
+        mTabL.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimaryDark));//设置指示器的颜色
         mTabL.setTabMode(TabLayout.MODE_SCROLLABLE);
         //初始化数据
         initData();
+        mViewP.setAdapter(adapter);
+       // mTabL.setViewPager(mViewP);
     }
 
 

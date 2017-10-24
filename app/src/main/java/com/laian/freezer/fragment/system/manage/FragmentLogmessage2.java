@@ -21,6 +21,7 @@ import com.laian.freezer.R;
 import com.laian.freezer.adapter.RecycleLogMessageAdapter;
 import com.laian.freezer.adapter.RecycleLogMessageAdapter2;
 import com.laian.freezer.bean.LogMessage;
+import com.laian.freezer.bean.Pagecount;
 import com.laian.freezer.bean.Pager;
 
 import java.util.ArrayList;
@@ -37,9 +38,6 @@ import cn.meiqu.baseproject.util.LogUtil;
 import cn.meiqu.baseproject.util.TimeUtil;
 import cn.meiqu.baseproject.view.superrecyclerview.SuperRecyclerView;
 
-import static com.laian.freezer.R.id.tv_device;
-import static com.laian.freezer.R.id.tv_end;
-import static com.laian.freezer.R.id.tv_range;
 import static com.laian.freezer.R.id.tv_start;
 
 /**
@@ -50,7 +48,8 @@ public class FragmentLogmessage2 extends BaseFragment implements RecycleLogMessa
     Pager pager = new Pager();
     String className = getClass().getName();
     String action_getData = className + API.requestLogMessageUrl;
-    String action_update = className + API.updateLoginUserUrl;
+    String action_update = className + API.requestLogMessageUrl;
+
     LogMessage logMessage = new LogMessage();
     ArrayList<LogMessage.RowsBean> TempAlarts = new ArrayList<>();
     RecycleLogMessageAdapter2 adapter;
@@ -75,17 +74,20 @@ public class FragmentLogmessage2 extends BaseFragment implements RecycleLogMessa
 
     String start = "";
     String end = "";
+    String modual="";
+    String logtype="";
     long startStamp = 0;
     long endStamp = 0;
     String deviceId = "0";
 
     String timeRange[] = {"全部", "登入事件", "登出事件", "添加事件","更新事件","删除事件","系统事件"};
-    int currentTimeRange = 6;
+    int currentTimeRange;
 
-    String logType[] ={"环境变量","系统管理"};
+    String logType[] ={"环境监控","系统管理"};
 
-    int currentLog=1;
+    int currentLog;
     private Object[] objects;
+    private String ehmListBeanStr;
 
     @Nullable
     @Override
@@ -122,11 +124,13 @@ public class FragmentLogmessage2 extends BaseFragment implements RecycleLogMessa
     @Override
     public void onHttpHandle(String action, String data) {
         if (action.equals(action_getData)) {
-            handleGetDate(data);
+            handleGetUpdateDate(data);
+        }if (action.equals(action_update)){
+            handleGetUpdateDate(data);
         }
     }
 
-    private void handleGetDate(String data) {
+    private void handleGetUpdateDate(String data) {
         logMessage = new Gson().fromJson(data, LogMessage.class);
         if (logMessage != null) {
 
@@ -137,14 +141,16 @@ public class FragmentLogmessage2 extends BaseFragment implements RecycleLogMessa
     }
 
 
+
+
     @Override
     public void onResume() {
         super.onResume();
         // showProgressDialog();
         pager.setPage("1");
-        pager.setPageCapacity("1000000000000");
-        String EhmListBeanStr = new Gson().toJson(pager);
-        HttpGetController.getInstance().getLogMessage(className, "pager", EhmListBeanStr);
+        pager.setPageCapacity("100");
+        ehmListBeanStr = new Gson().toJson(pager);
+        HttpGetController.getInstance().getLogMessage(className, "pager", ehmListBeanStr);
     }
 
     @Override
@@ -190,7 +196,7 @@ public class FragmentLogmessage2 extends BaseFragment implements RecycleLogMessa
                     currentLog = which;
                     dialog.dismiss();
                    setSelectDevice();
-                    requestDevice();
+                    request();
                 }
             }
         }).create();
@@ -202,12 +208,15 @@ public class FragmentLogmessage2 extends BaseFragment implements RecycleLogMessa
     }
 
     private void setSelectDevice() {
+
         tvDevice.setText(logType[currentLog]);
+        modual=logType[currentLog];
         requestRange();
     }
 
     private void setSelectRange() {
         tvRange.setText(timeRange[currentTimeRange]);
+        logtype=timeRange[currentTimeRange];
         requestRange();
     }
 
@@ -272,18 +281,24 @@ public class FragmentLogmessage2 extends BaseFragment implements RecycleLogMessa
         start = TimeUtil.getTime(startStamp);
         end = TimeUtil.getTime(endStamp);
         tvStart.setText("" + TimeUtil.getTime(startStamp, TimeUtil.DATE_FORMAT_DATE));
-        tvEnd.setText("" + TimeUtil.getTime(endStamp, TimeUtil.DATE_FORMAT_DATE));
+        tvEnd.setText("" + TimeUtil.getTime(endStamp, TimeUtil.DATE_FORMAT_DATE)+1);
         request();
     }
 
 
     private void request() {
-        requestData(start, end, deviceId);
+       // requestData(start, end, deviceId，modual,keyword);
+        Pagecount pagecount=new Pagecount();
+        pagecount.setEndTime(end);
+        pagecount.setStartTime(start);
+        pagecount.setLogType(logtype);
+        pagecount.setKeyword("");
+        pagecount.setModual(modual);
+        String EhmListBeanStr = new Gson().toJson(pagecount);
+        HttpGetController.getInstance().getQuestLogMessage(className,"pager",ehmListBeanStr,"params",EhmListBeanStr);
     }
 
-    private void requestData(String start, String end, String deviceId) {
 
-    }
 }
 
 

@@ -33,6 +33,8 @@ import cn.meiqu.baseproject.adapter.BaseRecycleAdapter;
 import cn.meiqu.baseproject.httpGet.HttpGetController;
 import cn.meiqu.baseproject.util.StringUtil;
 
+import static com.laian.freezer.fragment.FragmentControl.number2;
+
 /**
  * Created by zsp on 2017/9/7.
  */
@@ -45,12 +47,12 @@ public class FragmentRefrigerAlert extends FragmentAlert {
     @Override
     public RecyclerView.Adapter getAdapter() {
         adapter = new RecycleTempAlertAdapter(getActivity(), TempAlarts);
-        adapter.setOnItemClickListner(new BaseRecycleAdapter.ItemClickListener() {
+       /* adapter.setOnItemClickListner(new BaseRecycleAdapter.ItemClickListener() {
             @Override
             public void OnItemClick(View view, int position) {
                 showAlart("报警信息\r\n" + TempAlarts.get(position).getEhaInfo());
             }
-        });
+        });*/
         return adapter;
     }
 
@@ -161,7 +163,7 @@ public class FragmentRefrigerAlert extends FragmentAlert {
         }
 
         public void requestIps() {
-            HttpGetController.getInstance().getTempIpList(className);
+            HttpGetController.getInstance().getTempIpList(className,number2);
         }
 
         public void handleIps(String data) {

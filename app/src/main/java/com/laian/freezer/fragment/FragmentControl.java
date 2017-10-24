@@ -50,8 +50,8 @@ public abstract class FragmentControl extends BaseFragment {
         adapter = new PagerHomeAdapter(getChildFragmentManager(), fragments, titles);
         mViewP.setAdapter(adapter);
         mTabL.setupWithViewPager(mViewP);
-        mTabL.setTabTextColors(getResources().getColor(R.color.black), getResources().getColor(R.color.black));//设置文本在选中和为选中时候的颜色
-        mTabL.setSelectedTabIndicatorColor(getResources().getColor(R.color.black));//设置指示器的颜色
+        mTabL.setTabTextColors(getResources().getColor(R.color.black), getResources().getColor(R.color.colorPrimaryDark));//设置文本在选中和为选中时候的颜色
+        mTabL.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimaryDark));//设置指示器的颜色
         mTabL.setTabMode(TabLayout.MODE_FIXED);
         //
     }

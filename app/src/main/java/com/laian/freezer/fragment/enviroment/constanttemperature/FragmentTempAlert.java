@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,14 +28,18 @@ import java.util.ArrayList;
 
 import cn.meiqu.baseproject.API;
 import cn.meiqu.baseproject.adapter.BaseRecycleAdapter;
+import cn.meiqu.baseproject.baseRecycle.BaseOnRecycleClickListener;
 import cn.meiqu.baseproject.httpGet.HttpGetController;
 import cn.meiqu.baseproject.util.StringUtil;
+import cn.meiqu.baseproject.util.ToastUtil;
+
+import static com.laian.freezer.fragment.FragmentControl.number2;
 
 
 /**
  * Created by Fatel on 16-5-10.
  */
-public class FragmentTempAlert extends FragmentAlert {
+public class FragmentTempAlert extends FragmentAlert implements BaseOnRecycleClickListener {
 
     String action_getData = className + API.getTempAlart;
     ArrayList<TempAlart> TempAlarts = new ArrayList<>();
@@ -43,18 +48,14 @@ public class FragmentTempAlert extends FragmentAlert {
     @Override
     public RecyclerView.Adapter getAdapter() {
         adapter = new RecycleTempAlertAdapter(getActivity(), TempAlarts);
-        adapter.setOnItemClickListner(new BaseRecycleAdapter.ItemClickListener() {
-            @Override
-            public void OnItemClick(View view, int position) {
-                showAlart("报警信息\r\n" + TempAlarts.get(position).getEhaInfo());
-            }
-        });
+        adapter.setClickListener(this);
+        adapter.setHeaderView(LayoutInflater.from(getActivity()).inflate(R.layout.recycle_alart_type1,null));
         return adapter;
     }
 
     @Override
     public View getTopView() {
-        return LayoutInflater.from(getActivity()).inflate(R.layout.recycle_alart_type1, null);
+        return LayoutInflater.from(getActivity()).inflate(R.layout.recycle_alart_type_top, null);
     }
 
     @Override
@@ -92,6 +93,11 @@ public class FragmentTempAlert extends FragmentAlert {
         return tempReals.get(position - 1).getEhmId() + "";
     }
 
+    @Override
+    public void OnRecycleItemClick(int position) {
+        showAlart("报警信息\r\n" + TempAlarts.get(position).getEhaInfo());
+    }
+
     /**
      * Created by Fatel on 16-5-10.
      */
@@ -112,6 +118,7 @@ public class FragmentTempAlert extends FragmentAlert {
         public RecyclerView.Adapter getAdapter() {
             adapter = new RecycleTempManageAdapter(getActivity(), Temps);
             adapter.setOnItemClickListner(this);
+            adapter.setHeaderView(LayoutInflater.from(getActivity()).inflate(R.layout.layout_temp_top,null));
             return adapter;
         }
 
@@ -121,7 +128,7 @@ public class FragmentTempAlert extends FragmentAlert {
             requestIps();
             viewGBody.getChildAt(0).setVisibility(View.GONE);
             mFab.setVisibility(View.VISIBLE);
-            return LayoutInflater.from(getActivity()).inflate(R.layout.layout_temp_top, null);
+            return LayoutInflater.from(getActivity()).inflate(R.layout.layout_temp_top_null, null);
         }
 
         @Override
@@ -160,7 +167,7 @@ public class FragmentTempAlert extends FragmentAlert {
         }
 
         public void requestIps() {
-            HttpGetController.getInstance().getTempIpList(className);
+            HttpGetController.getInstance().getTempIpList(className,number2);
         }
 
         public void handleIps(String data) {
@@ -201,6 +208,7 @@ public class FragmentTempAlert extends FragmentAlert {
             if (getHttpStatus(data)) {
                 if (action.equals(action_add) || action.equals(action_del) || action.equals(action_edt)) {
                     handleEdt(data);
+                    ToastUtil.show(getContext(),data.toString());
                 } else if (action.equals(action_getLocation)) {
                     handleLocations(data);
                 } else if (action.equals(action_getIP)) {
@@ -344,6 +352,10 @@ public class FragmentTempAlert extends FragmentAlert {
                         return;
                     }
                     if (position == -1) {
+                     /*   String addr = addrs[currentAddr];
+                        int dlId = locations.get(currentTemp).getDlId();
+                        int diId = ips.get(currentIp).getDiId();
+*/
                         requestAdd(addrs[currentAddr] + "", locations.get(currentTemp).getDlId() + "", ips.get(currentIp).getDiId() + "", name, mEdtMaxTemp.getText().toString(), mEdtMinTemp.getText().toString(), mEdtMaxHum.getText().toString(), mEdtMinHum.getText().toString(), mEdtInterval.getText().toString());
                     } else {
                         requestEdt(Temps.get(position).getEhmId() + "", Temps.get(position).getDeviceLocationPojo().getDlId() + "", name, mEdtMaxTemp.getText().toString(), mEdtMinTemp.getText().toString(), mEdtMaxHum.getText().toString(), mEdtMinHum.getText().toString(), mEdtInterval.getText().toString());

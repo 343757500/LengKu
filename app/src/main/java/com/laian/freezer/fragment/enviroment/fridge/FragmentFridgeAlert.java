@@ -15,6 +15,7 @@ import com.laian.freezer.adapter.RecycleColdManagerAdapter;
 import com.laian.freezer.adapter.RecycleFridgeManagerAdapter;
 import com.laian.freezer.adapter.RecycleTempAlertAdapter;
 import com.laian.freezer.bean.ColdAlart;
+import com.laian.freezer.bean.FridgeAlart;
 import com.laian.freezer.bean.FridgeReal;
 import com.laian.freezer.bean.Ip;
 import com.laian.freezer.bean.Location;
@@ -35,6 +36,9 @@ import cn.meiqu.baseproject.API;
 import cn.meiqu.baseproject.adapter.BaseRecycleAdapter;
 import cn.meiqu.baseproject.httpGet.HttpGetController;
 import cn.meiqu.baseproject.util.StringUtil;
+import cn.meiqu.baseproject.util.ToastUtil;
+
+import static com.laian.freezer.fragment.FragmentControl.number2;
 
 /**
  * Created by zsp on 2017/8/24.
@@ -49,12 +53,6 @@ public class FragmentFridgeAlert extends FragmentAlert {
     @Override
     public RecyclerView.Adapter getAdapter() {
         adapter = new RecycleTempAlertAdapter(getActivity(), TempAlarts);
-        adapter.setOnItemClickListner(new BaseRecycleAdapter.ItemClickListener() {
-            @Override
-            public void OnItemClick(View view, int position) {
-                showAlart("报警信息\r\n" + TempAlarts.get(position).getEhaInfo());
-            }
-        });
         return adapter;
     }
 
@@ -108,12 +106,13 @@ public class FragmentFridgeAlert extends FragmentAlert {
         String action_del = className + API.delFridge;
         String action_getIP = className + API.getTempIP;
         String action_getLocation = className + API.getTemplocations;
-        FridgeReal Temps = new FridgeReal();
-        ArrayList<FridgeReal.EhmListBean> ehmList=new ArrayList<>();
+        FridgeAlart Temps = new FridgeAlart();
+        ArrayList<FridgeAlart.EhmListBean> ehmList=new ArrayList<>();
         ArrayList<Location> locations = new ArrayList<>();
         ArrayList<Ip> ips = new ArrayList<>();
         RecycleFridgeManagerAdapter adapter;
         String[] addrs = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
+        String[] grally = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
 
         @Override
         public RecyclerView.Adapter getAdapter() {
@@ -124,8 +123,8 @@ public class FragmentFridgeAlert extends FragmentAlert {
 
         @Override
         public View getTopView() {
-            //requestLocations();
-            //requestIps();
+            requestLocations();
+            requestIps();
             viewGBody.getChildAt(0).setVisibility(View.GONE);
             mFab.setVisibility(View.VISIBLE);
             return LayoutInflater.from(getActivity()).inflate(R.layout.layout_temp_top, null);
@@ -148,7 +147,7 @@ public class FragmentFridgeAlert extends FragmentAlert {
         }
 
         public void handleData(String data) {
-            Temps = new Gson().fromJson(data, FridgeReal.class);
+            Temps = new Gson().fromJson(data, FridgeAlart.class);
             ehmList.clear();
             ehmList.addAll(Temps.getEhmList());
             adapter.notifyDataSetChanged();
@@ -166,7 +165,7 @@ public class FragmentFridgeAlert extends FragmentAlert {
         }
 
         public void requestIps() {
-            HttpGetController.getInstance().getTempIpList(className);
+            HttpGetController.getInstance().getTempIpList(className,number2);
         }
 
         public void handleIps(String data) {
@@ -176,9 +175,9 @@ public class FragmentFridgeAlert extends FragmentAlert {
             ips.addAll(temps);
         }
 
-        public void requestAdd(String deviceAddress, String deviceLocation, String ipAddress, String deviceName, String maxTemp, String minTemp, String maxHum, String minHum, String interval) {
+        public void requestAdd(String key,String value) {
             showProgressDialog();
-            HttpGetController.getInstance().addTempManage(deviceAddress, deviceLocation, ipAddress, deviceName, maxTemp, minTemp, maxHum, minHum, interval, className);
+            HttpGetController.getInstance().addFridgeManage(className,key,value);
         }
 
         public void requestEdt(String key,String value) {
@@ -207,6 +206,7 @@ public class FragmentFridgeAlert extends FragmentAlert {
             if (getHttpStatus(data)) {
                 if (action.equals(action_add) || action.equals(action_del) || action.equals(action_edt)) {
                     handleEdt(data);
+                    ToastUtil.show(getContext(),data);
                 } else if (action.equals(action_getLocation)) {
                     handleLocations(data);
                 } else if (action.equals(action_getIP)) {
@@ -230,56 +230,54 @@ public class FragmentFridgeAlert extends FragmentAlert {
         public String getDeviceId(int position) {
             return "0";
         }
-
+        int currentGrally = 0;
         int currentAddr = 0;
         int currentTemp = 0;
         int currentIp = 0;
 
         public void showEdtDialog(final int position) {
-            View body = LayoutInflater.from(getActivity()).inflate(R.layout.layout_temp_input, null);
+            View body = LayoutInflater.from(getActivity()).inflate(R.layout.layout_cold_input, null);
             final EditText mEdtAddress;
+            final EditText edt_gallery;
             final EditText mEdtLocation;
             final EditText mEdtIp;
             final EditText mEdtName;
             final EditText mEdtMaxTemp;
             final EditText mEdtMinTemp;
-            final EditText mEdtMaxHum;
-            final EditText mEdtMinHum;
             final EditText mEdtInterval;
 
             mEdtAddress = (EditText) body.findViewById(R.id.edt_address);
+            edt_gallery = (EditText) body.findViewById(R.id.edt_gallery);
             mEdtLocation = (EditText) body.findViewById(R.id.edt_location);
             mEdtIp = (EditText) body.findViewById(R.id.edt_ip);
             mEdtName = (EditText) body.findViewById(R.id.edt_name);
             mEdtMaxTemp = (EditText) body.findViewById(R.id.edt_maxTemp);
             mEdtMinTemp = (EditText) body.findViewById(R.id.edt_minTemp);
-            mEdtMaxHum = (EditText) body.findViewById(R.id.edt_maxHum);
-            mEdtMinHum = (EditText) body.findViewById(R.id.edt_minHum);
             mEdtInterval = (EditText) body.findViewById(R.id.edt_interval);
 
             String title = "设备修改";
             if (position != -1) {
-                List<FridgeReal.EhmListBean> ehmList = Temps.getEhmList();
+                List<FridgeAlart.EhmListBean> ehmList = Temps.getEhmList();
                 mEdtAddress.setText("" + ehmList.get(position).getEhmAddress());
+                edt_gallery.setText(ehmList.get(position).getGallery() + "");
                 mEdtLocation.setText("" + ehmList.get(position).getDeviceLocationPojo().getDlName());
                 mEdtIp.setText("" + ehmList.get(position).getIpPort());
                 mEdtName.setText(ehmList.get(position).getEhmName() + "");
                 mEdtMaxTemp.setText("" + ehmList.get(position).getEhmMaxTemp());
                 mEdtMinTemp.setText("" + ehmList.get(position).getEhmMinTemp());
-                mEdtMaxHum.setText("" + ehmList.get(position).getEhmMaxHum());
-                mEdtMinHum.setText("" + ehmList.get(position).getEhmMinTemp());
                 mEdtInterval.setText("" + ehmList.get(position).getEhmInterval());
             } else {
                 title = "设备添加";
                 mEdtAddress.setText("" + addrs[0]);
+                edt_gallery.setText("" + grally[0]);
                 if (locations.isEmpty()) {
-                    //requestLocations();
+                    requestLocations();
                 } else {
                     mEdtLocation.setText("" + Temps.getLocationList().get(0).getDlName());
-                    // mEdtLocation.setText("" + locations.get(0).getDlName());
+                     mEdtLocation.setText("" + locations.get(0).getDlName());
                 }
                 if (ips.isEmpty()) {
-                    //requestIps();
+                    requestIps();
                 } else {
                     mEdtIp.setText("" + ips.get(0).getDiAddress() + ":" + ips.get(0).getDiPort());
                 }
@@ -322,12 +320,27 @@ public class FragmentFridgeAlert extends FragmentAlert {
                         alertDialog.show();
                     }
                 });
+
+                edt_gallery.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).setSingleChoiceItems(grally, currentGrally, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                currentGrally = which;
+                                edt_gallery.setText(grally[which] + "");
+                                dialog.dismiss();
+                            }
+                        }).create();
+                        alertDialog.show();
+                    }
+                });
                 mEdtIp.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         final String[] names = new String[ips.size()];
                         if (names.length == 0) {
-                            //requestIps();
+                            requestIps();
                             return;
                         }
                         for (int i = 0; i < ips.size(); i++) {
@@ -355,7 +368,23 @@ public class FragmentFridgeAlert extends FragmentAlert {
                         return;
                     }
                     if (position == -1) {
-                        requestAdd(addrs[currentAddr] + "", Temps.getLocationList().get(currentTemp).getDlId() + "", ips.get(currentIp).getDiId() + "", name, mEdtMaxTemp.getText().toString(), mEdtMinTemp.getText().toString(), mEdtMaxHum.getText().toString(), mEdtMinHum.getText().toString(), mEdtInterval.getText().toString());
+                        // requestAdd(addrs[currentAddr] + "", Temps.getLocationList().get(currentTemp).getDlId() + "", ips.get(currentIp).getDiId() + "", name, mEdtMaxTemp.getText().toString(), mEdtMinTemp.getText().toString(), mEdtMaxHum.getText().toString(), mEdtMinHum.getText().toString(), mEdtInterval.getText().toString());
+                        FridgeAlart.EhmListBean ehmListBean=new FridgeAlart.EhmListBean();
+                        ehmListBean.setEhmName(name);
+                        ehmListBean.setEhmAddress(Integer.parseInt(addrs[currentAddr]));
+                        //ehmListBean.setIpPort(ips.get(currentIp).getDiId() + "");
+                        ehmListBean.setIp(ips.get(currentIp).getDiId());
+                        ehmListBean.setEhmMaxTemp(Double.parseDouble(mEdtMaxTemp.getText().toString()));
+                        ehmListBean.setEhmMinTemp(Double.parseDouble(mEdtMinTemp.getText().toString()));
+                        ehmListBean.setGallery(Integer.parseInt(grally[currentGrally]));
+                        ehmListBean.setDeviceLocationPojo(Temps.getEhmList().get(currentTemp).getDeviceLocationPojo());
+                       /* ColdAlart.LocationListBean locationListBean=new ColdAlart.LocationListBean();
+                        locationListBean.setDlId(Temps.getLocationList().get(currentTemp).getDlId());*/
+
+                        String EhmListBeanStr = new Gson().toJson(ehmListBean);
+                        requestAdd("humiturePT100ManagePojo",EhmListBeanStr);
+
+
                     } else {
 
                         //要先给对象里面的元素赋值再把Gson对象转成字符串
@@ -364,8 +393,8 @@ public class FragmentFridgeAlert extends FragmentAlert {
                         Temps.getEhmList().get(position).setEhmName(name);
                         Temps.getEhmList().get(position).setEhmMaxTemp(Double.parseDouble(mEdtMaxTemp.getText().toString()));
                         Temps.getEhmList().get(position).setEhmMinTemp(Double.parseDouble(mEdtMinTemp.getText().toString()));
-                        Temps.getEhmList().get(position).setEhmMaxHum(Double.parseDouble(mEdtMaxHum.getText().toString()));
-                        Temps.getEhmList().get(position).setEhmMinHum(Double.parseDouble(mEdtMinHum.getText().toString()));
+                       /* Temps.getEhmList().get(position).setEhmMaxHum(Double.parseDouble(mEdtMaxHum.getText().toString()));
+                        Temps.getEhmList().get(position).setEhmMinHum(Double.parseDouble(mEdtMinHum.getText().toString()));*/
                         Temps.getEhmList().get(position).setEhmInterval(Integer.parseInt(mEdtInterval.getText().toString()));
                         String EhmListBeanStr = new Gson().toJson(Temps.getEhmList().get(position));
                         // //get请求不知道为什么不可以，所以封装了post请求

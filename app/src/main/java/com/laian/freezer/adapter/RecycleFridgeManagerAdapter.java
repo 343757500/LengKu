@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.laian.freezer.R;
 import com.laian.freezer.bean.ColdAlart;
+import com.laian.freezer.bean.FridgeAlart;
 import com.laian.freezer.bean.FridgeReal;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import cn.meiqu.baseproject.baseRecycle.BaseHolder;
 
 public class RecycleFridgeManagerAdapter extends BaseRecycleAdapter {
     private Context mContent;
-    ArrayList<FridgeReal.EhmListBean> ehmList=new ArrayList<>();
+    ArrayList<FridgeAlart.EhmListBean> ehmList=new ArrayList<>();
 
     public interface OnItemClickListner {
         public void onItemDel(int position);
@@ -39,7 +40,7 @@ public class RecycleFridgeManagerAdapter extends BaseRecycleAdapter {
 
     private RecycleFridgeManagerAdapter.OnItemClickListner onItemClickListner;
 
-    public RecycleFridgeManagerAdapter(Context mContent,  ArrayList<FridgeReal.EhmListBean> ehmList) {
+    public RecycleFridgeManagerAdapter(Context mContent,  ArrayList<FridgeAlart.EhmListBean> ehmList) {
         this.mContent = mContent;
         this.ehmList = ehmList;
     }

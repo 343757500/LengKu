@@ -200,7 +200,7 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="温度下限:"
+                android:text="湿度下限:"
                 android:textColor="@color/black3"
                 android:textSize="14dp" />
 

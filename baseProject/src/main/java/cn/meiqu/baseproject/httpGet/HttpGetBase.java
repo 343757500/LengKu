@@ -15,6 +15,7 @@ import java.io.IOException;
 import cn.meiqu.baseproject.API;
 import cn.meiqu.baseproject.util.LogUtil;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 
@@ -118,6 +119,14 @@ public class HttpGetBase {
         return call(url, body, key, value);
     }
 
+    public okhttp3.Call post(String uri, FormBody body, String action, String key, String value,String key1,String value1) {
+        this.uri = uri;
+        this.action = action;
+        String url = API.getAbsolutePath(uri);
+        Log.e("url", url);
+        return call2(url, body, key, value,key1,value1);
+    }
+
 
     public Call get(String uri, String param, String action) {
         this.uri = uri;
@@ -199,6 +208,43 @@ public class HttpGetBase {
         final okhttp3.Request request = new okhttp3.Request.Builder()
                 .url(url)  //"http://192.168.1.37:8080/freezer/app/udpHumiture8ManageJson.html"
                 .post(requestBody)
+                .build();
+        okhttp3.Call call = okHttpClient.newCall(request);
+
+        call.enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                LogUtil.log("服务器失败返回-url----" + HttpGetBase.this.uri + "--数据为---" + e.toString());
+                HttpResponController.getInstance().onHttpRespon(HttpGetBase.this.action + HttpGetBase.this.uri, null);
+            }
+
+            @Override
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String data = response.body().string();
+
+                    HttpResponController.getInstance().onHttpRespon(HttpGetBase.this.action + HttpGetBase.this.uri, data);
+                } else {
+                    LogUtil.log("服务器失败返回-url----" + HttpGetBase.this.uri + "--数据为---" + response);
+                    HttpResponController.getInstance().onHttpRespon(HttpGetBase.this.action + HttpGetBase.this.uri, null);
+                }
+            }
+        });
+
+        return call;
+    }
+
+
+    private okhttp3.Call call2(String url, FormBody body, String key, String value,String key1, String value1) {
+        okhttp3.OkHttpClient okHttpClient = new okhttp3.OkHttpClient();
+        RequestBody requestBody = new FormBody.Builder()
+                .add(key, value)    //"humiture8ManagePojo" 和s
+                .add(key1, value1)
+                .build();
+
+        final okhttp3.Request request = new okhttp3.Request.Builder()
+                .url(url)  //"http://192.168.1.37:8080/freezer/app/udpHumiture8ManageJson.html"
+                .post(requestBody)//create(MediaType.parse("application/x-www-form-urlencoded;charset=utf8"),"pager={\"page\":\"1\",\"pageCapacity\":\"1000000000000\"}&params={\"endTime\":\"\",\"keyword\":\"\",\"logType\":\"删除事件\",\"modual\":\"\",\"startTime\":\"\"}")
                 .build();
         okhttp3.Call call = okHttpClient.newCall(request);
 

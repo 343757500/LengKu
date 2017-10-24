@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
         PagerHomeAdapter tabAdapter = new PagerHomeAdapter(getSupportFragmentManager(),mFragments,mTitles);
         mViewPager.setAdapter(tabAdapter);
         tabLayout.setBackgroundColor(getResources().getColor(R.color.color_backround));
-        tabLayout.setTabTextColors(getResources().getColor(R.color.selwife), getResources().getColor(R.color.white));//设置文本在选中和为选中时候的颜色
-        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.black));//设置指示器的颜色
+        tabLayout.setTabTextColors(getResources().getColor(R.color.black), getResources().getColor(R.color.white));//设置文本在选中和为选中时候的颜色
+       // tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.black));//设置指示器的颜色
         tabLayout.setupWithViewPager(mViewPager);
     }
 

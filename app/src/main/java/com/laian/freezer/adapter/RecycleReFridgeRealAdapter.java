@@ -101,18 +101,18 @@ public class RecycleReFridgeRealAdapter extends BaseRecycleAdapter {
         @Override
         public void instanceView(final int position) {
 
-            mTvdeviceName.setText(mTvdeviceName.getText().toString()+fridgeReals.get(position).getDevName() + "");
+            mTvdeviceName.setText(fridgeReals.get(position).getDevName() + "");
             boolean status = fridgeReals.get(position).isStatus();
             if (status){
-                mTvdeviceStatus.setText(mTvdeviceStatus.getText().toString()+"在线");
+                mTvdeviceStatus.setText("在线");
             }else{
-                mTvdeviceStatus.setText(mTvdeviceStatus.getText().toString()+"离线");
+                mTvdeviceStatus.setText("离线");
             }
-            mTvdevicePhone.setText(mTvdevicePhone.getText().toString()+fridgeReals.get(position).getDevPhone());
-            mTvcarDriver.setText(mTvcarDriver.getText().toString()+fridgeReals.get(position).getDevDriver());
+            mTvdevicePhone.setText(fridgeReals.get(position).getDevPhone());
+            mTvcarDriver.setText(fridgeReals.get(position).getDevDriver());
 
-            mTvcarPhone.setText(mTvcarPhone.getText().toString()+fridgeReals.get(position).getDriverPhone());
-            mTvcarNumber.setText(mTvcarNumber.getText().toString()+fridgeReals.get(position).getCarNumber());
+            mTvcarPhone.setText(fridgeReals.get(position).getDriverPhone());
+            mTvcarNumber.setText(fridgeReals.get(position).getCarNumber());
             mTvdevName.setText(fridgeReals.get(position).getDevice().get(0).getDevName());
             mTvdevNameTwo.setText(fridgeReals.get(position).getDevice().get(1).getDevName());
             mTvdevValue.setText(fridgeReals.get(position).getDevice().get(0).getDevTempValue()+  "℃");

@@ -51,9 +51,12 @@ import cn.meiqu.baseproject.API;
 import cn.meiqu.baseproject.adapter.BaseRecycleAdapter;
 import cn.meiqu.baseproject.httpGet.HttpGetController;
 import cn.meiqu.baseproject.util.StringUtil;
+import cn.meiqu.baseproject.util.ToastUtil;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+
+import static com.laian.freezer.fragment.FragmentControl.number2;
 
 
 /**
@@ -70,12 +73,6 @@ public class FragmentColdAlert extends FragmentAlert {
     @Override
     public RecyclerView.Adapter getAdapter() {
         adapter = new RecycleTempAlertAdapter(getActivity(), TempAlarts);
-        adapter.setOnItemClickListner(new BaseRecycleAdapter.ItemClickListener() {
-            @Override
-            public void OnItemClick(View view, int position) {
-                showAlart("报警信息\r\n" + TempAlarts.get(position).getEhaInfo());
-            }
-        });
         return adapter;
     }
 
@@ -124,7 +121,7 @@ public class FragmentColdAlert extends FragmentAlert {
      */
     public static class FragmentColdManage extends FragmentAlert implements RecycleColdManagerAdapter.OnItemClickListner, SwipeRefreshLayout.OnRefreshListener {
         String action_getData = className + API.getColdManage;
-        String action_add = className + API.addTemp;
+        String action_add = className + API.addCold;
         String action_edt = className + API.edtCold;
         String action_del = className + API.delCold;
         String action_getIP = className + API.getTempIP;
@@ -135,21 +132,23 @@ public class FragmentColdAlert extends FragmentAlert {
         ArrayList<Ip> ips = new ArrayList<>();
         RecycleColdManagerAdapter adapter;
         String[] addrs = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
+        String[] grally = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
 
         @Override
         public RecyclerView.Adapter getAdapter() {
             adapter = new RecycleColdManagerAdapter(getActivity(), ehmList);
             adapter.setOnItemClickListner(this);
+            adapter.setHeaderView(LayoutInflater.from(getActivity()).inflate(R.layout.layout_temp_top,null));
             return adapter;
         }
 
         @Override
         public View getTopView() {
-            //requestLocations();
-            //requestIps();
+            requestLocations();
+            requestIps();
             viewGBody.getChildAt(0).setVisibility(View.GONE);
             mFab.setVisibility(View.VISIBLE);
-            return LayoutInflater.from(getActivity()).inflate(R.layout.layout_temp_top, null);
+            return LayoutInflater.from(getActivity()).inflate(R.layout.layout_temp_top_null, null);
         }
 
         @Override
@@ -187,7 +186,7 @@ public class FragmentColdAlert extends FragmentAlert {
         }
 
         public void requestIps() {
-            HttpGetController.getInstance().getTempIpList(className);
+            HttpGetController.getInstance().getTempIpList(className,number2);
         }
 
         public void handleIps(String data) {
@@ -229,6 +228,7 @@ public class FragmentColdAlert extends FragmentAlert {
             if (getHttpStatus(data)) {
                 if (action.equals(action_add) || action.equals(action_del) || action.equals(action_edt)) {
                     handleEdt(data);
+                    ToastUtil.show(getContext(),data);
                 } else if (action.equals(action_getLocation)) {
                     handleLocations(data);
                 } else if (action.equals(action_getIP)) {
@@ -237,6 +237,8 @@ public class FragmentColdAlert extends FragmentAlert {
                 if (action.equals(action_getData)) {
                     handleData(data);
                 }
+
+
 
             }
         }
@@ -252,14 +254,15 @@ public class FragmentColdAlert extends FragmentAlert {
         public String getDeviceId(int position) {
             return "0";
         }
-
+        int currentGrally = 0;
         int currentAddr = 0;
         int currentTemp = 0;
         int currentIp = 0;
 
         public void showEdtDialog(final int position) {
-            View body = LayoutInflater.from(getActivity()).inflate(R.layout.layout_temp_input, null);
+            View body = LayoutInflater.from(getActivity()).inflate(R.layout.layout_cold_input, null);
             final EditText mEdtAddress;
+            final EditText edt_gallery;
             final EditText mEdtLocation;
             final EditText mEdtIp;
             final EditText mEdtName;
@@ -270,6 +273,7 @@ public class FragmentColdAlert extends FragmentAlert {
             final EditText mEdtInterval;
 
             mEdtAddress = (EditText) body.findViewById(R.id.edt_address);
+            edt_gallery = (EditText) body.findViewById(R.id.edt_gallery);
             mEdtLocation = (EditText) body.findViewById(R.id.edt_location);
             mEdtIp = (EditText) body.findViewById(R.id.edt_ip);
             mEdtName = (EditText) body.findViewById(R.id.edt_name);
@@ -286,22 +290,24 @@ public class FragmentColdAlert extends FragmentAlert {
                 mEdtLocation.setText("" + ehmList.get(position).getDeviceLocationPojo().getDlName());
                 mEdtIp.setText("" + ehmList.get(position).getIpPort());
                 mEdtName.setText(ehmList.get(position).getEhmName() + "");
+                edt_gallery.setText(ehmList.get(position).getGallery() + "");
                 mEdtMaxTemp.setText("" + ehmList.get(position).getEhmMaxTemp());
                 mEdtMinTemp.setText("" + ehmList.get(position).getEhmMinTemp());
-                mEdtMaxHum.setText("" + ehmList.get(position).getEhmMaxHum());
-                mEdtMinHum.setText("" + ehmList.get(position).getEhmMinTemp());
+             /*   mEdtMaxHum.setText("" + ehmList.get(position).getEhmMaxHum());
+                mEdtMinHum.setText("" + ehmList.get(position).getEhmMinTemp());*/
                 mEdtInterval.setText("" + ehmList.get(position).getEhmInterval());
             } else {
                 title = "设备添加";
                 mEdtAddress.setText("" + addrs[0]);
+                edt_gallery.setText("" + grally[0]);
                 if (locations.isEmpty()) {
-                    //requestLocations();
+                    requestLocations();
                 } else {
                     mEdtLocation.setText("" + Temps.getLocationList().get(0).getDlName());
-                    // mEdtLocation.setText("" + locations.get(0).getDlName());
+                     mEdtLocation.setText("" + locations.get(0).getDlName());
                 }
                 if (ips.isEmpty()) {
-                    //requestIps();
+                    requestIps();
                 } else {
                     mEdtIp.setText("" + ips.get(0).getDiAddress() + ":" + ips.get(0).getDiPort());
                 }
@@ -338,6 +344,21 @@ public class FragmentColdAlert extends FragmentAlert {
                             public void onClick(DialogInterface dialog, int which) {
                                 currentAddr = which;
                                 mEdtAddress.setText(addrs[which] + "");
+                                dialog.dismiss();
+                            }
+                        }).create();
+                        alertDialog.show();
+                    }
+                });
+
+                edt_gallery.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).setSingleChoiceItems(grally, currentGrally, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                currentGrally = which;
+                                edt_gallery.setText(grally[which] + "");
                                 dialog.dismiss();
                             }
                         }).create();
@@ -383,12 +404,13 @@ public class FragmentColdAlert extends FragmentAlert {
                         ColdAlart.EhmListBean ehmListBean=new ColdAlart.EhmListBean();
                         ehmListBean.setEhmName(name);
                         ehmListBean.setEhmAddress(Integer.parseInt(addrs[currentAddr]));
-                      //  ehmListBean.setIpPort(ips.get(currentIp).getDiId() + "");
+                        //ehmListBean.setIpPort(ips.get(currentIp).getDiId() + "");
+                        ehmListBean.setIp(ips.get(currentIp).getDiId());
                         ehmListBean.setEhmMaxTemp(Double.parseDouble(mEdtMaxTemp.getText().toString()));
                         ehmListBean.setEhmMinTemp(Double.parseDouble(mEdtMinTemp.getText().toString()));
-                        ehmListBean.setEhmMaxHum(Double.parseDouble(mEdtMaxHum.getText().toString()));
-                        ehmListBean.setEhmMinHum(Double.parseDouble(mEdtMinHum.getText().toString()));
-                        /*ColdAlart.LocationListBean locationListBean=new ColdAlart.LocationListBean();
+                        ehmListBean.setGallery(Integer.parseInt(grally[currentGrally]));
+                        ehmListBean.setDeviceLocationPojo(Temps.getEhmList().get(currentTemp).getDeviceLocationPojo());
+                       /* ColdAlart.LocationListBean locationListBean=new ColdAlart.LocationListBean();
                         locationListBean.setDlId(Temps.getLocationList().get(currentTemp).getDlId());*/
 
                         String EhmListBeanStr = new Gson().toJson(ehmListBean);
@@ -402,8 +424,8 @@ public class FragmentColdAlert extends FragmentAlert {
                         Temps.getEhmList().get(position).setEhmName(name);
                         Temps.getEhmList().get(position).setEhmMaxTemp(Double.parseDouble(mEdtMaxTemp.getText().toString()));
                         Temps.getEhmList().get(position).setEhmMinTemp(Double.parseDouble(mEdtMinTemp.getText().toString()));
-                        Temps.getEhmList().get(position).setEhmMaxHum(Double.parseDouble(mEdtMaxHum.getText().toString()));
-                        Temps.getEhmList().get(position).setEhmMinHum(Double.parseDouble(mEdtMinHum.getText().toString()));
+                      /*  Temps.getEhmList().get(position).setEhmMaxHum(Double.parseDouble(mEdtMaxHum.getText().toString()));
+                        Temps.getEhmList().get(position).setEhmMinHum(Double.parseDouble(mEdtMinHum.getText().toString()));*/
                         Temps.getEhmList().get(position).setEhmInterval(Integer.parseInt(mEdtInterval.getText().toString()));
                         String EhmListBeanStr = new Gson().toJson(Temps.getEhmList().get(position));
 

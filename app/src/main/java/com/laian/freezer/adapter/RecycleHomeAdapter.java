@@ -1,51 +1,115 @@
 package com.laian.freezer.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.laian.freezer.R;
 import com.laian.freezer.bean.HomePage;
 
+import org.xutils.x;
+
 import java.util.ArrayList;
 
+import cn.meiqu.baseproject.API;
 import cn.meiqu.baseproject.adapter.BaseRecycleHolder;
 import cn.meiqu.baseproject.adapter.CommonAdapter;
+import cn.meiqu.baseproject.baseRecycle.BaseHolder;
+import cn.meiqu.baseproject.baseRecycle.BaseOnRecycleClickListener;
+import cn.meiqu.baseproject.baseRecycle.BaseRecycleAdapter;
 
 /**
  * Created by Administrator on 2017/7/28.
  */
 
-public class RecycleHomeAdapter extends CommonAdapter<HomePage> {
+public class RecycleHomeAdapter extends BaseRecycleAdapter {
 
-    private ArrayList<HomePage> mList = new ArrayList<>();
-    private Context mContext;
+    private Context mContent;
+    private ArrayList<HomePage> homePages;
+    private ImageView imageView;
 
-    public RecycleHomeAdapter(Context context,ArrayList<HomePage> list){
-        super(context,list);
-        mContext = context;
-        mList = list;
+
+    public RecycleHomeAdapter(Context mContent, ArrayList<HomePage> homePages) {
+        this.mContent = mContent;
+        this.homePages = homePages;
     }
+
+    private BaseOnRecycleClickListener clickListener;
+
+    public BaseOnRecycleClickListener getClickListener() {
+        return clickListener;
+    }
+
+    public void setClickListener(BaseOnRecycleClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
     @Override
-    public void instanceOfViewHolder(BaseRecycleHolder holder, HomePage homePage, int position) {
-        View itemView = holder.getItemView();
-        itemView.setAlpha(0.0f);
-        itemView.setScaleX(0.0f);
-        itemView.animate().alpha(1.0f).scaleX(1.0f).setDuration(100 * position).start();
-        String name = mList.get(position).getName();
-        if (name.length() > 3) {
-            name = name.substring(0, 2) + "\n" + name.substring(2, name.length());
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new Holder(View.inflate(mContent, R.layout.recycle_home_child, null));
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        ((Holder) holder).instanceView(position);
+    }
+
+    @Override
+    public int getItemCount() {
+        return homePages.size();
+    }
+
+    class Holder extends BaseHolder implements BaseRecycleHolder.RecycleViewItemClickListener, View.OnClickListener {
+        public Holder(View itemView) {
+            super(itemView);
+            // ((RippleView) itemView).setOnRippleCompleteListener(this);
+            itemView.setOnClickListener(this);
         }
-        ((TextView)holder.getView(R.id.tv)).setText(name);
-    }
 
-    @Override
-    public int getItemLayoutId() {
-        return R.layout.recycle_home;
-    }
 
-    @Override
-    public int getItemOtherLayoutId() {
-        return 0;
+        TextView mTv;
+
+        public void assignViews() {
+            mTv = (TextView) findViewById(R.id.tv_child);
+            imageView = (ImageView) findViewById(R.id.iv_child);
+        }
+
+
+        @Override
+        public void instanceView(final int position) {
+            itemView.setAlpha(0.0f);
+            itemView.setScaleX(0.0f);
+            itemView.animate().alpha(1.0f).scaleX(1.0f).setDuration(100 * position).start();
+            String name = homePages.get(position).getName();
+            String iconUrl = homePages.get(position).getIconUrl();
+           /* if (name.length() > 3) {
+                name = name.substring(0, 2) + "\n" + name.substring(2, name.length());
+            }*/
+            mTv.setText("" + name);
+            //imageView.setImageResource(iconUrl);
+            String absolutePath = API.getAbsolutePath("ktr-mrms" + iconUrl);
+
+          //  x.image().bind(imageView, absolutePath);
+        }
+
+       /* @Override
+        public void onComplete(RippleView rippleView) {
+            if (getClickListener() != null) {
+                getClickListener().OnRecycleItemClick(getPosition());
+            }
+        }*/
+
+        @Override
+        public void OnRecycleItemClick(View v, int position) {
+            getClickListener().OnRecycleItemClick(getPosition());
+        }
+
+        @Override
+        public void onClick(View view) {
+            getClickListener().OnRecycleItemClick(getPosition());
+        }
     }
 }

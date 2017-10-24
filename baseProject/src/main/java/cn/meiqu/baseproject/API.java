@@ -37,7 +37,7 @@ public class API {
     public static String getTempAlart = "freezer/app/reqHumitureAlarmDataJson.html";
     public static String getColdAlart = "freezer/app/queHumiture8ManageJson.html";
     public static String getFridgeAlart = "freezer/app/queHumiturePT100ManageJson.html";
-
+    public static String getFridgeatorAlart = "freezer/app/queIceboxManageJson.html";
 
     public static String getTemoHistroyData = "freezer/app/reqHumitureHisDataJson.html";
     public static String getNoLocationWaterAlart = "freezer/app/reqNonLocationAlarmDataJson.html";
@@ -104,22 +104,27 @@ public class API {
     public static String getTempManage = "freezer/app/queHumitureManageJson.html";
     public static String getColdManage = "freezer/app/queHumiture8ManageJson.html";
     public static String getFridgeManage = "freezer/app/queHumiturePT100ManageJson.html";
+    public static String getFridgeratorManage = "freezer/app/queIceboxManageJson.html";
     public static String getRefiiferTempManage = "freezer/app/queGPRSManageJson.html";
     public static String edtTemp = "freezer/app/updHumitureManageInfo.html";
     public static String edtCold = "freezer/app/udpHumiture8ManageJson.html";
     public static String edtFridge = "freezer/app/udpHumiturePT100ManageJson.html";
+    public static String edtFridgetor = "freezer/app/udpIceboxManageJson.html";
     public static String edtReFridge = "freezer/app/updateGPRSDeviceJson.html";
 
     public static String addTemp = "freezer/app/addHumitureManageInfo.html";
+    public static String addRefrigertorTemp = "freezer/app/addIceboxManageJson.html";
     public static String addCold = "freezer/app/addHumiture8ManageJson.html";
     public static String addFridge = "freezer/app/addHumiturePT100ManageJson.html";
+    public static String addReFridgeator = "freezer/app/addIceboxManageJson.html";
     public static String addReFridge = "freezer/app/addGPRSDeviceJson.html";
     public static String delTemp = "freezer/app/delHumitureManageInfo.html";
     public static String delCold = "freezer/app/delHumiture8ManageJson.html";
     public static String delFridge = "freezer/app/delHumiturePT100ManageJson.html";
+    public static String delFridgerator = "freezer/app/delIceboxManageJson.html";
     public static String delReFridge = "freezer/app/delGPRSDeviceJson.html";
 
-    public static String getTempIP = "freezer/app/queIpJson.html";
+    public static String getTempIP = "freezer/app/queIpByNumberJson.html";
     public static String getTemplocations = "freezer/app/queLocationJson.html";
 
     public static String getFreezerManage = "freezer/app/queHumiture8ManageJson.html";

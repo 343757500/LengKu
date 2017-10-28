@@ -138,7 +138,7 @@ public class FragmentColdAlert extends FragmentAlert {
         public RecyclerView.Adapter getAdapter() {
             adapter = new RecycleColdManagerAdapter(getActivity(), ehmList);
             adapter.setOnItemClickListner(this);
-            adapter.setHeaderView(LayoutInflater.from(getActivity()).inflate(R.layout.layout_temp_top,null));
+            adapter.setHeaderView(LayoutInflater.from(getActivity()).inflate(R.layout.layout_cold_top,null));
             return adapter;
         }
 

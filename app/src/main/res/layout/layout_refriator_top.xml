@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,12 +13,74 @@
         android:paddingBottom="4dp"
         android:paddingTop="4dp">
 
+
+        <TextView
+            android:id="@+id/tv_maxHum"
+            android:text="设备编号"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingBottom="6dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingTop="6dp"
+            android:singleLine="true"
+            android:textColor="#3d3c3c"
+            android:textSize="12sp"/>
+
+
+
     <TextView
+        android:id="@+id/tv_addr"
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:id="@+id/tv_addr"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingBottom="6dp"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:paddingTop="6dp"
+        android:singleLine="true"
+        android:text="设备地址"
+        android:textColor="#3d3c3c"
+        android:textSize="12sp" />
 
-        android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/tv_minHum"
+            android:text="设备通道"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingBottom="6dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingTop="6dp"
+            android:singleLine="true"
+            android:textColor="#3d3c3c"
+            android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tv_locationName"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingBottom="6dp"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:paddingTop="6dp"
+        android:singleLine="true"
+        android:text="所在位置"
+        android:textColor="#3d3c3c"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:paddingBottom="6dp"
         android:paddingLeft="2dp"
@@ -29,107 +92,61 @@
         android:textSize="12sp" />
 
     <TextView
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:id="@+id/tv_locationName"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="6dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:paddingTop="6dp"
-        android:singleLine="true"
-        android:text="设备地址"
-        android:textColor="#3d3c3c"
-        android:textSize="12sp" />
-
-    <TextView
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:id="@+id/tv_name"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="6dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:paddingTop="6dp"
-        android:singleLine="true"
-        android:text="设备手机"
-        android:textColor="#3d3c3c"
-        android:textSize="12sp" />
-
-    <TextView
-        android:layout_weight="1"
-        android:layout_width="0dp"
         android:id="@+id/tv_maxTemp"
-        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:paddingBottom="6dp"
         android:paddingLeft="2dp"
         android:paddingRight="2dp"
         android:paddingTop="6dp"
         android:singleLine="true"
-        android:text="人员名称"
+        android:text="温上限"
         android:textColor="#3d3c3c"
         android:textSize="12sp" />
 
     <TextView
-        android:layout_weight="1"
-        android:layout_width="0dp"
         android:id="@+id/tv_minTemp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="6dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:paddingTop="6dp"
-        android:singleLine="true"
-        android:text="人员手机"
-        android:textColor="#3d3c3c"
-        android:textSize="12sp" />
-
-    <TextView
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:id="@+id/tv_maxHum"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:paddingBottom="6dp"
         android:paddingLeft="2dp"
         android:paddingRight="2dp"
         android:paddingTop="6dp"
         android:singleLine="true"
-        android:text="车牌号码"
+        android:text="温上限"
         android:textColor="#3d3c3c"
-        android:textSize="12sp" />
+        android:textSize="12sp"/>
 
-    <TextView
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:id="@+id/tv_minHum"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="6dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:paddingTop="6dp"
-        android:singleLine="true"
-        android:text="温度上限"
-        android:textColor="#3d3c3c"
-        android:textSize="12sp" />
-
+        <TextView
+            android:id="@+id/tv_typle"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingBottom="6dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingTop="6dp"
+            android:singleLine="true"
+            android:text="协议类型"
+            android:textColor="#3d3c3c"
+            android:textSize="12sp" />
     <TextView
         android:layout_weight="1"
         android:layout_width="0dp"
         android:id="@+id/tv_interval"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:paddingBottom="6dp"
         android:paddingLeft="2dp"
         android:paddingRight="2dp"
         android:paddingTop="6dp"
         android:singleLine="true"
-        android:text="温度下限"
+        android:text="间隔"
         android:textColor="#3d3c3c"
         android:textSize="12sp" />
 
@@ -137,46 +154,14 @@
         android:layout_weight="1"
         android:layout_width="0dp"
         android:id="@+id/tv_ip"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:paddingBottom="6dp"
         android:paddingLeft="2dp"
         android:paddingRight="2dp"
         android:paddingTop="6dp"
         android:singleLine="true"
-        android:text="湿度上限"
-        android:textColor="#3d3c3c"
-        android:textSize="12sp" />
-
-
-    <TextView
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:id="@+id/tv_ip2"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="6dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:paddingTop="6dp"
-        android:singleLine="true"
-        android:text="湿度下限"
-        android:textColor="#3d3c3c"
-        android:textSize="12sp" />
-
-
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:paddingBottom="6dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:paddingTop="6dp"
-        android:singleLine="true"
-        android:text="保存间隔"
+        android:text="对应IP端口"
         android:textColor="#3d3c3c"
         android:textSize="12sp" />
 
@@ -184,7 +169,7 @@
         android:layout_weight="1"
         android:layout_width="0dp"
         android:id="@+id/tv_action"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:paddingBottom="6dp"
         android:paddingLeft="2dp"

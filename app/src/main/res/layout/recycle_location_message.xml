@@ -7,7 +7,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#b6dff3"
         android:orientation="horizontal"
         android:paddingBottom="4dp"
         android:paddingTop="4dp">
@@ -22,7 +21,7 @@
         android:padding="6dp"
         android:singleLine="true"
         android:text="序列号"
-        android:textColor="#3d3c3c"
+        android:textColor="@color/white"
         android:textSize="14dp" />
 
     <TextView
@@ -34,25 +33,41 @@
         android:padding="6dp"
         android:singleLine="true"
         android:text="所在位置"
-        android:textColor="#3d3c3c"
+        android:textColor="@color/white"
         android:textSize="14dp" />
 
-
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_weight="1"
             android:id="@+id/tv_edt"
-            android:layout_width="0dp"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="2dp"
             android:gravity="center"
             android:padding="6dp"
             android:singleLine="true"
-            android:text="功能操作"
-            android:textColor="#3d3c3c"
-            android:textSize="14dp"
-             />
+            android:text="修改"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:background="@drawable/shape_tvbuton" />
 
-
+        <TextView
+            android:background="@drawable/shape_tvbuton"
+            android:id="@+id/tv_del"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:gravity="center"
+            android:padding="6dp"
+            android:singleLine="true"
+            android:text="删除"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+    </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -118,6 +118,7 @@ public class FragmentFridgeAlert extends FragmentAlert {
         public RecyclerView.Adapter getAdapter() {
             adapter = new RecycleFridgeManagerAdapter(getActivity(), ehmList);
             adapter.setOnItemClickListner(this);
+            adapter.setHeaderView(LayoutInflater.from(getActivity()).inflate(R.layout.layout_cold_top,null));
             return adapter;
         }
 
@@ -127,7 +128,7 @@ public class FragmentFridgeAlert extends FragmentAlert {
             requestIps();
             viewGBody.getChildAt(0).setVisibility(View.GONE);
             mFab.setVisibility(View.VISIBLE);
-            return LayoutInflater.from(getActivity()).inflate(R.layout.layout_temp_top, null);
+            return LayoutInflater.from(getActivity()).inflate(R.layout.layout_temp_top_null, null);
         }
 
         @Override

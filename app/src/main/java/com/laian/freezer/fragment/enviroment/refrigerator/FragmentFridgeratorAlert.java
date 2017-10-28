@@ -115,7 +115,7 @@ public class FragmentFridgeratorAlert extends FragmentAlert {
         @Override
         public RecyclerView.Adapter getAdapter() {
             adapter = new RecycleRefrigertorManageAdapter(getActivity(), ehmList);
-            adapter.setHeaderView(LayoutInflater.from(getActivity()).inflate(R.layout.layout_temp_top,null));
+            adapter.setHeaderView(LayoutInflater.from(getActivity()).inflate(R.layout.layout_refriator_top,null));
             adapter.setOnItemClickListner(this);
             return adapter;
         }

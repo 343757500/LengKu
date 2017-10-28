@@ -40,6 +40,7 @@ public class FragmentLocation extends FragmentAlert implements RecycleLocationAd
     public RecyclerView.Adapter getAdapter() {
         adapter = new RecycleLocationAdapter(getActivity(), Locations);
         adapter.setOnItemClickListner(this);
+        adapter.setHeaderView(LayoutInflater.from(getActivity()).inflate(R.layout.recycle_location,null));
         return adapter;
     }
 
@@ -47,7 +48,7 @@ public class FragmentLocation extends FragmentAlert implements RecycleLocationAd
     public View getTopView() {
         viewGBody.getChildAt(0).setVisibility(View.GONE);
         mFab.setVisibility(View.VISIBLE);
-        return LayoutInflater.from(getActivity()).inflate(R.layout.recycle_location, null);
+        return LayoutInflater.from(getActivity()).inflate(R.layout.recycle_location_null, null);
     }
 
     @Override
@@ -146,10 +147,7 @@ public class FragmentLocation extends FragmentAlert implements RecycleLocationAd
         showEdtDialog("添加所在机房或楼层", true, "", "");
     }
 
-    @Override
-    public void onItemEdt(int position) {
-        showEdtDialog("修改位置名称", false, Locations.get(position).getDlId() + "", Locations.get(position).getDlName() + "");
-    }
+
 
     @Override
     public void onItemDel(final int position) {
@@ -164,5 +162,10 @@ public class FragmentLocation extends FragmentAlert implements RecycleLocationAd
                 requestDel(Locations.get(position).getDlId() + "");
             }
         }).show();
+    }
+
+    @Override
+    public void onItemEdit(int position) {
+        showEdtDialog("修改位置名称", false, Locations.get(position).getDlId() + "", Locations.get(position).getDlName() + "");
     }
 }

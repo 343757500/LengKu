@@ -115,6 +115,7 @@ public class FragmentRefrigerAlert extends FragmentAlert {
         public RecyclerView.Adapter getAdapter() {
             adapter = new RecycleRefrigerManageAdapter(getActivity(), Temps);
             adapter.setOnItemClickListner(this);
+            adapter.setHeaderView(LayoutInflater.from(getActivity()).inflate(R.layout.layout_refrigertemp_top,null));
             return adapter;
         }
 
@@ -124,7 +125,7 @@ public class FragmentRefrigerAlert extends FragmentAlert {
             requestIps();
             viewGBody.getChildAt(0).setVisibility(View.GONE);
             mFab.setVisibility(View.VISIBLE);
-            return LayoutInflater.from(getActivity()).inflate(R.layout.layout_refrigertemp_top, null);
+            return LayoutInflater.from(getActivity()).inflate(R.layout.layout_refrigertemp_top_null, null);
         }
 
         @Override
@@ -229,7 +230,7 @@ public class FragmentRefrigerAlert extends FragmentAlert {
         int currentIp = 0;
 
         public void showEdtDialog(final int position) {
-            View body = LayoutInflater.from(getActivity()).inflate(R.layout.layout_temp_input, null);
+            View body = LayoutInflater.from(getActivity()).inflate(R.layout.layout_refriger_input, null);
             final EditText mEdtAddress;
             final EditText mEdtLocation;
             final EditText mEdtIp;
@@ -239,29 +240,49 @@ public class FragmentRefrigerAlert extends FragmentAlert {
             final EditText mEdtMaxHum;
             final EditText mEdtMinHum;
             final EditText mEdtInterval;
+            final EditText edt_shePhone;
+            final EditText edt_persiomName;
+            final EditText edt_phone;
+
+            final EditText edt_carphone;
+          /*  final EditText edt_phone;
+            final EditText edt_phone;*/
+
 
             mEdtAddress = (EditText) body.findViewById(R.id.edt_address);
             mEdtLocation = (EditText) body.findViewById(R.id.edt_location);
             mEdtIp = (EditText) body.findViewById(R.id.edt_ip);
+
             mEdtName = (EditText) body.findViewById(R.id.edt_name);
             mEdtMaxTemp = (EditText) body.findViewById(R.id.edt_maxTemp);
             mEdtMinTemp = (EditText) body.findViewById(R.id.edt_minTemp);
             mEdtMaxHum = (EditText) body.findViewById(R.id.edt_maxHum);
             mEdtMinHum = (EditText) body.findViewById(R.id.edt_minHum);
             mEdtInterval = (EditText) body.findViewById(R.id.edt_interval);
+            edt_phone=(EditText) body.findViewById(R.id.edt_phone);
+            edt_persiomName=(EditText) body.findViewById(R.id.edt_persiomName);
+            edt_shePhone=(EditText) body.findViewById(R.id.edt_shePhone);
+            edt_carphone=(EditText) body.findViewById(R.id.edt_carphone);
 
             String title = "设备修改";
             if (position != -1) {
                 final RefrigerReal Temp = Temps.get(position);
-              /*  mEdtAddress.setText("" + Temp.getEhmAddress());
+               /* mEdtAddress.setText("" + Temp.getEhmAddress());
                 mEdtLocation.setText("" + Temp.getDeviceLocationPojo().getDlName());
                 mEdtIp.setText("" + Temp.getIpPort());
-                mEdtName.setText(Temp.getEhmName() + "");
-                mEdtMaxTemp.setText("" + Temp.getEhmMaxTemp());
-                mEdtMinTemp.setText("" + Temp.getEhmMinTemp());
-                mEdtMaxHum.setText("" + Temp.getEhmMaxHum());
-                mEdtMinHum.setText("" + Temp.getEhmMinTemp());
-                mEdtInterval.setText("" + Temp.getEhmInterval());*/
+                mEdtName.setText(Temp.getEhmName() + "");*/
+
+                mEdtAddress.setText("" + Temp.getDevAddr());
+                mEdtName.setText(Temp.getDevName() + "");
+                edt_shePhone.setText("" + Temp.getDevPhone());
+                edt_persiomName.setText(""+Temp.getDevDriver());
+                edt_phone.setText(""+Temp.getDriverPhone());
+                edt_carphone.setText(""+Temp.getCarNumber());
+                mEdtMaxTemp.setText("" + Temp.getTempMaxValue());
+                mEdtMinTemp.setText("" + Temp.getTempMinValue());
+                mEdtMaxHum.setText("" + Temp.getHumiMaxValue());
+                mEdtMinHum.setText("" + Temp.getHumiMinValue());
+                mEdtInterval.setText("" + Temp.getSaveInterval());
             } else {
                 title = "设备添加";
                 mEdtAddress.setText("" + addrs[0]);
@@ -370,7 +391,7 @@ public class FragmentRefrigerAlert extends FragmentAlert {
             }).setPositiveButton("是", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                 //   requestDel(Temps.get(position).getEhmId() + "", Temps.get(position).getIp() + "");
+                  //  requestDel(Temps.get(position).getEhmId() + "", Temps.get(position).getIp() + "");
                 }
             }).show();
         }

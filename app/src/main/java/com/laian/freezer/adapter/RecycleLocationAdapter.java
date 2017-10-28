@@ -20,11 +20,51 @@ public class RecycleLocationAdapter extends BaseRecycleAdapter {
     private Context mContent;
     private ArrayList<Location> Locations;
 
-    public interface OnItemClickListner {
-        public void onItemEdt(int position);
+    private View mHeaderView;
 
+
+    public static final int TYPE_HEADER = 0;
+    public static final int TYPE_NORMAL = 1;
+
+    public interface OnItemClickListner {
         public void onItemDel(int position);
+
+        public void onItemEdit(int position);
+
     }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        if(mHeaderView == null) return TYPE_NORMAL;
+        if(position == 0) return TYPE_HEADER;
+        return TYPE_NORMAL;
+    }
+
+
+
+    public void setHeaderView(View headerView) {
+        mHeaderView = headerView;
+        notifyItemInserted(0);
+    }
+
+    public View getHeaderView() {
+        return mHeaderView;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public OnItemClickListner getOnItemClickListner() {
         return onItemClickListner;
@@ -44,47 +84,65 @@ public class RecycleLocationAdapter extends BaseRecycleAdapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new Holder(View.inflate(mContent, R.layout.recycle_location, null));
+
+        if(mHeaderView != null && viewType == TYPE_HEADER) {
+            return new Holder(mHeaderView);
+        }else {
+            return new Holder(View.inflate(mContent, R.layout.recycle_location_message, null));
+        }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((Holder) holder).instanceView(position);
+
+        if (getItemViewType(position)==TYPE_HEADER){
+            return;
+        }
+        int  pos = getRealPosition(holder);
+        ((Holder) holder).instanceView(pos);
+    }
+
+    public int getRealPosition(RecyclerView.ViewHolder holder) {
+        int position = holder.getLayoutPosition();
+        return mHeaderView == null ? position : position - 1;
     }
 
     @Override
     public int getItemCount() {
-        return Locations.size();
+        return mHeaderView == null ? Locations.size() : Locations.size() + 1;
     }
 
-    class Holder extends BaseHolder implements RippleView.OnRippleCompleteListener {
-        public Holder(View itemView) {
-            super(itemView);
-            itemView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        }
-
+    class Holder extends BaseHolder implements  View.OnClickListener {
 
         private TextView mTvId;
         private TextView mTvName;
-        private RippleView mRippleEdt;
         private TextView mTvEdt;
-        private RippleView mRippleDel;
         private TextView mTvDel;
-
-        public void assignViews() {
+        public Holder(View itemView) {
+            super(itemView);
+            itemView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            if (itemView==mHeaderView){
+                return;
+            }
             mTvId = (TextView) findViewById(R.id.tv_id);
             mTvName = (TextView) findViewById(R.id.tv_name);
-            mRippleEdt = (RippleView) findViewById(R.id.ripple_edt);
             mTvEdt = (TextView) findViewById(R.id.tv_edt);
-            mRippleDel = (RippleView) findViewById(R.id.ripple_del);
             mTvDel = (TextView) findViewById(R.id.tv_del);
 
             mTvId.setTextColor(mTvId.getResources().getColor(R.color.black3));
             mTvName.setTextColor(mTvId.getResources().getColor(R.color.black3));
             mTvEdt.setBackgroundColor(mTvId.getResources().getColor(R.color.colorPrimary));
             mTvDel.setBackgroundColor(mTvId.getResources().getColor(R.color.colorAccent));
-            mRippleEdt.setOnRippleCompleteListener(this);
-            mRippleDel.setOnRippleCompleteListener(this);
+
+            mTvEdt.setOnClickListener(this);
+            mTvDel.setOnClickListener(this);
+        }
+
+
+
+
+        public void assignViews() {
+
         }
 
 
@@ -102,13 +160,15 @@ public class RecycleLocationAdapter extends BaseRecycleAdapter {
         }
 
 
+
+
         @Override
-        public void onComplete(RippleView v) {
+        public void onClick(View v) {
             if (getOnItemClickListner() != null) {
-                if (v.getId() == mRippleDel.getId()) {
-                    getOnItemClickListner().onItemDel(getPosition());
-                } else if (v.getId() == mRippleEdt.getId()) {
-                    getOnItemClickListner().onItemEdt(getPosition());
+                if (v.getId() == mTvEdt.getId()) {
+                    getOnItemClickListner().onItemEdit(getPosition()-1);
+                } else if (v.getId() == mTvDel.getId()) {
+                    getOnItemClickListner().onItemDel(getPosition()-1);
                 }
             }
         }

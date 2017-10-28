@@ -86,7 +86,7 @@ public class RecycleColdManagerAdapter extends BaseRecycleAdapter {
         if(mHeaderView != null && viewType == TYPE_HEADER) {
             return new Holder(mHeaderView);
         }else {
-            return new Holder(View.inflate(mContent, R.layout.recycle_temp_manage, null));
+            return new Holder(View.inflate(mContent, R.layout.recycle_cold_manage, null));
         }
 
     }
@@ -183,8 +183,8 @@ public class RecycleColdManagerAdapter extends BaseRecycleAdapter {
                     mTvIp.setText("" + ehmList.get(position).getIpPort());
                     mTvMaxTemp.setText("" + ehmList.get(position).getEhmMaxTemp());
                     mTvMinTemp.setText("" + ehmList.get(position).getEhmMinTemp());
-                    mTvMaxHum.setText("" + ehmList.get(position).getEhmMaxHum());
-                    mTvMinHum.setText("" + ehmList.get(position).getEhmMinHum());
+                    mTvMaxHum.setText("" + ehmList.get(position).getEhmId());
+                    mTvMinHum.setText("" + ehmList.get(position).getGallery());
                     mTvInterval.setText("" + ehmList.get(position).getEhmInterval());
                 }
 

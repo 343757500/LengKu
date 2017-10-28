@@ -2,14 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:orientation="horizontal"
-    android:paddingBottom="4dp"
-    android:paddingTop="4dp">
-
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#b6dff3"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp">
     <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:textSize="12sp"
         android:id="@+id/tv_name"
-        android:layout_width="32dp"
+
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -19,26 +25,29 @@
         android:singleLine="true"
         android:text="星期"
         android:layout_margin="2dp"
-        android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textColor="#3d3c3c"
+         />
 
 
     <TextView
-        android:id="@+id/tv_time1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_width="0dp"
+        android:textSize="12sp"
+        android:id="@+id/tv_time1"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="2dp"
         android:singleLine="true"
         android:text="时间段"
         android:layout_margin="2dp"
-        android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textColor="#3d3c3c"
+         />
 
     <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:textSize="12sp"
         android:id="@+id/tv_emailStatus"
-        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -49,12 +58,14 @@
         android:text="邮箱报警"
         android:layout_margin="2dp"
 
-        android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textColor="#3d3c3c"
+        />
 
     <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:textSize="12sp"
         android:id="@+id/tv_smsStatus"
-        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -65,12 +76,14 @@
         android:layout_margin="2dp"
 
         android:text="短信报警"
-        android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textColor="#3d3c3c"
+         />
 
     <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:textSize="12sp"
         android:id="@+id/tv_soundStatus"
-        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -81,12 +94,14 @@
         android:text="声光报警"
         android:layout_margin="2dp"
 
-        android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textColor="#3d3c3c"
+         />
 
     <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:textSize="12sp"
         android:id="@+id/tv_phoneStatus"
-        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -96,12 +111,14 @@
         android:singleLine="true"
         android:text="电话报警"
         android:layout_margin="2dp"
-        android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textColor="#3d3c3c"
+         />
 
     <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:textSize="12sp"
         android:id="@+id/tv_interval"
-        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -112,12 +129,14 @@
         android:text="间隔/分钟"
         android:layout_margin="2dp"
 
-        android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textColor="#3d3c3c"
+         />
 
     <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:textSize="12sp"
         android:id="@+id/tv_edt"
-        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -127,6 +146,7 @@
         android:singleLine="true"
         android:text="操作"
         android:layout_margin="2dp"
-        android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textColor="#3d3c3c"
+         />
+    </LinearLayout>
 </LinearLayout>

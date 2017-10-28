@@ -87,7 +87,7 @@ public class RecycleRefrigertorManageAdapter extends BaseRecycleAdapter {
         if(mHeaderView != null && viewType == TYPE_HEADER) {
             return new Holder(mHeaderView);
         }else {
-            return new Holder(View.inflate(mContent, R.layout.recycle_temp_manage, null));
+            return new Holder(View.inflate(mContent, R.layout.recycle_refrigerator_manage, null));
         }
     }
 
@@ -124,6 +124,7 @@ public class RecycleRefrigertorManageAdapter extends BaseRecycleAdapter {
         private TextView mTvIp;
         private TextView mTvEdt;
         private TextView mTvDel;
+        private TextView tv_syle;
 
 
         public Holder(View itemView) {
@@ -143,6 +144,7 @@ public class RecycleRefrigertorManageAdapter extends BaseRecycleAdapter {
             mTvIp = (TextView) findViewById(R.id.tv_ip);
             mTvEdt = (TextView) findViewById(R.id.tv_edt);
             mTvDel = (TextView) findViewById(R.id.tv_del);
+            tv_syle = (TextView) findViewById(R.id.tv_syle);
 
             mTvAddr.setTextColor(mTvName.getResources().getColor(R.color.black3));
             mTvLocationName.setTextColor(mTvName.getResources().getColor(R.color.black3));
@@ -153,7 +155,7 @@ public class RecycleRefrigertorManageAdapter extends BaseRecycleAdapter {
             mTvMaxHum.setTextColor(mTvName.getResources().getColor(R.color.black3));
             mTvMinHum.setTextColor(mTvName.getResources().getColor(R.color.black3));
             mTvInterval.setTextColor(mTvName.getResources().getColor(R.color.black3));
-
+            tv_syle.setTextColor(mTvName.getResources().getColor(R.color.black3));
             mTvEdt.setBackgroundColor(mTvName.getResources().getColor(R.color.colorPrimary));
             mTvDel.setBackgroundColor(mTvName.getResources().getColor(R.color.colorAccent));
 
@@ -183,9 +185,10 @@ public class RecycleRefrigertorManageAdapter extends BaseRecycleAdapter {
                 mTvIp.setText("" + TempReal.getIpPort());
                 mTvMaxTemp.setText("" + TempReal.getEhmMaxTemp());
                 mTvMinTemp.setText("" + TempReal.getEhmMinTemp());
-                mTvMaxHum.setText("" + TempReal.getEhmMaxHum());
-                mTvMinHum.setText("" + TempReal.getEhmMinHum());
+                mTvMaxHum.setText("" + TempReal.getEhmId());
+                mTvMinHum.setText("" + TempReal.getGallery());
                 mTvInterval.setText("" + TempReal.getEhmInterval());
+                tv_syle.setText(""+TempReal.getEhmType());
             }
         }
 

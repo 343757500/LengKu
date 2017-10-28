@@ -24,12 +24,47 @@ public class RecycleFridgeManagerAdapter extends BaseRecycleAdapter {
     private Context mContent;
     ArrayList<FridgeAlart.EhmListBean> ehmList=new ArrayList<>();
 
+    private View mHeaderView;
+
+
+    public static final int TYPE_HEADER = 0;
+    public static final int TYPE_NORMAL = 1;
+
     public interface OnItemClickListner {
         public void onItemDel(int position);
 
         public void onItemEdit(int position);
 
     }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        if(mHeaderView == null) return TYPE_NORMAL;
+        if(position == 0) return TYPE_HEADER;
+        return TYPE_NORMAL;
+    }
+
+
+
+    public void setHeaderView(View headerView) {
+        mHeaderView = headerView;
+        notifyItemInserted(0);
+    }
+
+    public View getHeaderView() {
+        return mHeaderView;
+    }
+
+
+
+
+
+
+
+
+
+
 
     public RecycleFridgeManagerAdapter.OnItemClickListner getOnItemClickListner() {
         return onItemClickListner;
@@ -48,24 +83,36 @@ public class RecycleFridgeManagerAdapter extends BaseRecycleAdapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new RecycleFridgeManagerAdapter.Holder(View.inflate(mContent, R.layout.recycle_temp_manage, null));
+
+        if(mHeaderView != null && viewType == TYPE_HEADER) {
+            return new Holder(mHeaderView);
+        }else {
+            return new Holder(View.inflate(mContent, R.layout.recycle_cold_manage, null));
+        }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((RecycleFridgeManagerAdapter.Holder)holder).instanceView(position);
+
+        if (getItemViewType(position)==TYPE_HEADER){
+            return;
+        }
+        int  pos = getRealPosition(holder);
+        ((RecycleFridgeManagerAdapter.Holder) holder).instanceView(pos);
     }
+
+    public int getRealPosition(RecyclerView.ViewHolder holder) {
+        int position = holder.getLayoutPosition();
+        return mHeaderView == null ? position : position - 1;
+    }
+
 
     @Override
     public int getItemCount() {
-        return ehmList.size();
+        return mHeaderView == null ? ehmList.size() : ehmList.size() + 1;
     }
 
     class Holder extends BaseHolder implements View.OnClickListener {
-        public Holder(View itemView) {
-            super(itemView);
-            itemView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        }
 
         private TextView mTvAddr;
         private TextView mTvLocationName;
@@ -78,8 +125,12 @@ public class RecycleFridgeManagerAdapter extends BaseRecycleAdapter {
         private TextView mTvIp;
         private TextView mTvEdt;
         private TextView mTvDel;
-
-        public void assignViews() {
+        public Holder(View itemView) {
+            super(itemView);
+            itemView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            if (itemView==mHeaderView){
+                return;
+            }
             mTvAddr = (TextView) findViewById(R.id.tv_addr);
             mTvLocationName = (TextView) findViewById(R.id.tv_locationName);
             mTvName = (TextView) findViewById(R.id.tv_name);
@@ -110,6 +161,12 @@ public class RecycleFridgeManagerAdapter extends BaseRecycleAdapter {
         }
 
 
+
+        public void assignViews() {
+
+        }
+
+
         @Override
         public void instanceView(final int position) {
             if (position % 2 == 0) {
@@ -125,8 +182,8 @@ public class RecycleFridgeManagerAdapter extends BaseRecycleAdapter {
                 mTvIp.setText("" + ehmList.get(position).getIpPort());
                 mTvMaxTemp.setText("" + ehmList.get(position).getEhmMaxTemp());
                 mTvMinTemp.setText("" + ehmList.get(position).getEhmMinTemp());
-                mTvMaxHum.setText("" + ehmList.get(position).getEhmMaxHum());
-                mTvMinHum.setText("" + ehmList.get(position).getEhmMinHum());
+                mTvMaxHum.setText("" + ehmList.get(position).getEhmId());
+                mTvMinHum.setText("" + ehmList.get(position).getGallery());
                 mTvInterval.setText("" + ehmList.get(position).getEhmInterval());
             }
 
@@ -139,9 +196,9 @@ public class RecycleFridgeManagerAdapter extends BaseRecycleAdapter {
         public void onClick(View v) {
             if (getOnItemClickListner() != null) {
                 if (v.getId() == mTvEdt.getId()) {
-                    getOnItemClickListner().onItemEdit(getPosition());
+                    getOnItemClickListner().onItemEdit(getPosition()-1);
                 } else if (v.getId() == mTvDel.getId()) {
-                    getOnItemClickListner().onItemDel(getPosition());
+                    getOnItemClickListner().onItemDel(getPosition()-1);
                 }
             }
         }

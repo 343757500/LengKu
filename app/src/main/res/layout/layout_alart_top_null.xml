@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="gone"
     >
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -11,42 +11,12 @@
         android:orientation="horizontal"
         android:paddingBottom="4dp"
         android:paddingTop="4dp">
-
     <TextView
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:id="@+id/tv_addr"
-
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="6dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:paddingTop="6dp"
-        android:singleLine="true"
-        android:text="设备名称"
-        android:textColor="#3d3c3c"
-        android:textSize="12sp" />
-
-    <TextView
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:id="@+id/tv_locationName"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="6dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:paddingTop="6dp"
-        android:singleLine="true"
-        android:text="设备地址"
-        android:textColor="#3d3c3c"
-        android:textSize="12sp" />
-
-    <TextView
-        android:layout_weight="1"
-        android:layout_width="0dp"
+        android:textSize="12sp"
         android:id="@+id/tv_name"
+
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -54,14 +24,31 @@
         android:paddingRight="2dp"
         android:paddingTop="6dp"
         android:singleLine="true"
-        android:text="设备手机"
+        android:text="星期"
+        android:layout_margin="2dp"
         android:textColor="#3d3c3c"
-        android:textSize="12sp" />
+         />
+
 
     <TextView
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:id="@+id/tv_maxTemp"
+        android:textSize="12sp"
+        android:id="@+id/tv_time1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="2dp"
+        android:singleLine="true"
+        android:text="时间段"
+        android:layout_margin="2dp"
+        android:textColor="#3d3c3c"
+         />
+
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:textSize="12sp"
+        android:id="@+id/tv_emailStatus"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -69,14 +56,17 @@
         android:paddingRight="2dp"
         android:paddingTop="6dp"
         android:singleLine="true"
-        android:text="人员名称"
+        android:text="邮箱报警"
+        android:layout_margin="2dp"
+
         android:textColor="#3d3c3c"
-        android:textSize="12sp" />
+        />
 
     <TextView
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:id="@+id/tv_minTemp"
+        android:textSize="12sp"
+        android:id="@+id/tv_smsStatus"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -84,14 +74,17 @@
         android:paddingRight="2dp"
         android:paddingTop="6dp"
         android:singleLine="true"
-        android:text="人员手机"
+        android:layout_margin="2dp"
+
+        android:text="短信报警"
         android:textColor="#3d3c3c"
-        android:textSize="12sp" />
+         />
 
     <TextView
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:id="@+id/tv_maxHum"
+        android:textSize="12sp"
+        android:id="@+id/tv_soundStatus"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -99,14 +92,17 @@
         android:paddingRight="2dp"
         android:paddingTop="6dp"
         android:singleLine="true"
-        android:text="车牌号码"
+        android:text="声光报警"
+        android:layout_margin="2dp"
+
         android:textColor="#3d3c3c"
-        android:textSize="12sp" />
+         />
 
     <TextView
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:id="@+id/tv_minHum"
+        android:textSize="12sp"
+        android:id="@+id/tv_phoneStatus"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -114,13 +110,15 @@
         android:paddingRight="2dp"
         android:paddingTop="6dp"
         android:singleLine="true"
-        android:text="温度上限"
+        android:text="电话报警"
+        android:layout_margin="2dp"
         android:textColor="#3d3c3c"
-        android:textSize="12sp" />
+         />
 
     <TextView
         android:layout_weight="1"
         android:layout_width="0dp"
+        android:textSize="12sp"
         android:id="@+id/tv_interval"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -129,61 +127,17 @@
         android:paddingRight="2dp"
         android:paddingTop="6dp"
         android:singleLine="true"
-        android:text="温度下限"
+        android:text="间隔/分钟"
+        android:layout_margin="2dp"
+
         android:textColor="#3d3c3c"
-        android:textSize="12sp" />
+         />
 
     <TextView
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:id="@+id/tv_ip"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="6dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:paddingTop="6dp"
-        android:singleLine="true"
-        android:text="湿度上限"
-        android:textColor="#3d3c3c"
-        android:textSize="12sp" />
-
-
-    <TextView
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:id="@+id/tv_ip2"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="6dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:paddingTop="6dp"
-        android:singleLine="true"
-        android:text="湿度下限"
-        android:textColor="#3d3c3c"
-        android:textSize="12sp" />
-
-
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:paddingBottom="6dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:paddingTop="6dp"
-        android:singleLine="true"
-        android:text="保存间隔"
-        android:textColor="#3d3c3c"
-        android:textSize="12sp" />
-
-    <TextView
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:id="@+id/tv_action"
+        android:textSize="12sp"
+        android:id="@+id/tv_edt"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -192,8 +146,8 @@
         android:paddingTop="6dp"
         android:singleLine="true"
         android:text="操作"
+        android:layout_margin="2dp"
         android:textColor="#3d3c3c"
-        android:textSize="12sp" />
-
+         />
     </LinearLayout>
 </LinearLayout>

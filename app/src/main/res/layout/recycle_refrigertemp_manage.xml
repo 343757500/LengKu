@@ -9,7 +9,8 @@
 
     <TextView
         android:id="@+id/tv_addr"
-        android:layout_width="20dp"
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -19,11 +20,12 @@
         android:singleLine="true"
         android:text="设备名称"
         android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textSize="10sp" />
 
     <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:id="@+id/tv_locationName"
-        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -33,11 +35,12 @@
         android:singleLine="true"
         android:text="设备地址"
         android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textSize="10sp" />
 
     <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:id="@+id/tv_phone"
-        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -47,11 +50,12 @@
         android:singleLine="true"
         android:text="设备手机"
         android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textSize="10sp" />
 
     <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:id="@+id/tv_personname"
-        android:layout_width="28dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -61,11 +65,12 @@
         android:singleLine="true"
         android:text="人员名称"
         android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textSize="10sp" />
 
     <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:id="@+id/tv_personphone"
-        android:layout_width="28dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -75,11 +80,12 @@
         android:singleLine="true"
         android:text="人员手机"
         android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textSize="10sp" />
 
     <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:id="@+id/tv_carNumber"
-        android:layout_width="28dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -89,11 +95,12 @@
         android:singleLine="true"
         android:text="车辆牌号"
         android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textSize="10sp" />
 
     <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:id="@+id/tv_uppertop"
-        android:layout_width="28dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -103,11 +110,12 @@
         android:singleLine="true"
         android:text="温度上限"
         android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textSize="10sp" />
 
     <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:id="@+id/tv_upperup"
-        android:layout_width="28dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
@@ -117,14 +125,14 @@
         android:singleLine="true"
         android:text="温度下限"
         android:textColor="@color/white"
-        android:textSize="8dp"
+        android:textSize="10sp"
        />
 
     <TextView
-        android:id="@+id/tv_humiditytop"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_width="0dp"
+        android:id="@+id/tv_humiditytop"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="6dp"
         android:paddingLeft="2dp"
@@ -132,8 +140,8 @@
         android:paddingTop="6dp"
         android:singleLine="true"
         android:text="湿度上限"
-        android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textColor="@color/black"
+        android:textSize="10sp" />
 
 
     <TextView
@@ -148,8 +156,8 @@
         android:paddingTop="6dp"
         android:singleLine="true"
         android:text="湿度下限"
-        android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textColor="@color/black"
+        android:textSize="10sp" />
 
 
     <TextView
@@ -164,11 +172,12 @@
         android:paddingTop="6dp"
         android:singleLine="true"
         android:text="保存间隔"
-        android:textColor="@color/white"
-        android:textSize="8dp" />
+        android:textColor="@color/black"
+        android:textSize="10sp" />
 
     <LinearLayout
-        android:layout_width="60dp"
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal">
@@ -183,7 +192,7 @@
             android:singleLine="true"
             android:text="停用"
             android:textColor="@color/white"
-            android:textSize="8dp" />
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/tv_edt"
@@ -195,7 +204,7 @@
             android:singleLine="true"
             android:text="更新"
             android:textColor="@color/white"
-            android:textSize="8dp" />
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/tv_del"
@@ -207,7 +216,7 @@
             android:singleLine="true"
             android:text="删除"
             android:textColor="@color/white"
-            android:textSize="8dp" />
+            android:textSize="10sp" />
     </LinearLayout>
 
 </LinearLayout>

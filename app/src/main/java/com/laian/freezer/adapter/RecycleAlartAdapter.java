@@ -135,12 +135,12 @@ public class RecycleAlartAdapter extends BaseRecycleAdapter {
             mTvInterval = (TextView) findViewById(R.id.tv_interval);
             mTvEdt = (TextView) findViewById(R.id.tv_edt);
 
-            mTvName.setTextColor(mTvName.getResources().getColor(R.color.black3));
+           /* mTvName.setTextColor(mTvName.getResources().getColor(R.color.black3));
             mTvTime1.setTextColor(mTvName.getResources().getColor(R.color.black3));
             mTvTime2.setTextColor(mTvName.getResources().getColor(R.color.black3));
             mTvTime3.setTextColor(mTvName.getResources().getColor(R.color.black3));
             mTvInterval.setTextColor(mTvName.getResources().getColor(R.color.black3));
-
+*/
             mTvEmailStatus.setOnClickListener(this);
             mTvSmsStatus.setOnClickListener(this);
             mTvSoundStatus.setOnClickListener(this);
@@ -169,34 +169,34 @@ public class RecycleAlartAdapter extends BaseRecycleAdapter {
             mTvTime2.setText("" + alart.getTimeQuantum2());
             mTvTime3.setText("" + alart.getTimeQuantum3());
             mTvInterval.setText("" + alart.getIntervalTime());
-            mTvEdt.setBackgroundColor(mTvName.getResources().getColor(R.color.colorAccent));
+           // mTvEdt.setBackgroundColor(mTvName.getResources().getColor(R.color.colorAccent));
             if (alart.getEMailStatus() == 0) {
                 mTvEmailStatus.setText("已关闭");
-                mTvEmailStatus.setBackgroundColor(mTvName.getResources().getColor(R.color.black3));
+               // mTvEmailStatus.setBackgroundColor(mTvName.getResources().getColor(R.color.device_list1));
             } else {
                 mTvEmailStatus.setText("已开启");
-                mTvEmailStatus.setBackgroundColor(mTvName.getResources().getColor(R.color.colorPrimary));
+              //  mTvEmailStatus.setBackgroundColor(mTvName.getResources().getColor(R.color.colorPrimaryDark));
             }
             if (alart.getSmsStatus() == 0) {
                 mTvSmsStatus.setText("已关闭");
-                mTvSmsStatus.setBackgroundColor(mTvName.getResources().getColor(R.color.black3));
+              //  mTvSmsStatus.setBackgroundColor(mTvName.getResources().getColor(R.color.device_list1));
             } else {
                 mTvSmsStatus.setText("已开启");
-                mTvSmsStatus.setBackgroundColor(mTvName.getResources().getColor(R.color.colorPrimary));
+               // mTvSmsStatus.setBackgroundColor(mTvName.getResources().getColor(R.color.colorPrimaryDark));
             }
             if (alart.getSoundLightStatus() == 0) {
                 mTvSoundStatus.setText("已关闭");
-                mTvSoundStatus.setBackgroundColor(mTvName.getResources().getColor(R.color.black3));
+               // mTvSoundStatus.setBackgroundColor(mTvName.getResources().getColor(R.color.device_list1));
             } else {
                 mTvSoundStatus.setText("已开启");
-                mTvSoundStatus.setBackgroundColor(mTvName.getResources().getColor(R.color.colorPrimary));
+               // mTvSoundStatus.setBackgroundColor(mTvName.getResources().getColor(R.color.colorPrimaryDark));
             }
             if (alart.getPhoneStatus() == 0) {
                 mTvPhoneStatus.setText("已关闭");
-                mTvPhoneStatus.setBackgroundColor(mTvName.getResources().getColor(R.color.black3));
+                //mTvPhoneStatus.setBackgroundColor(mTvName.getResources().getColor(R.color.device_list1));
             } else {
                 mTvPhoneStatus.setText("已开启");
-                mTvPhoneStatus.setBackgroundColor(mTvName.getResources().getColor(R.color.colorPrimary));
+               // mTvPhoneStatus.setBackgroundColor(mTvName.getResources().getColor(R.color.colorPrimaryDark));
             }
         }
 
@@ -204,15 +204,15 @@ public class RecycleAlartAdapter extends BaseRecycleAdapter {
         public void onClick(View v) {
             if (getOnItemClickListner() != null) {
                 if (v.getId() == mTvEmailStatus.getId()) {
-                    getOnItemClickListner().onItemEmail(getPosition());
+                    getOnItemClickListner().onItemEmail(getPosition()-1);
                 } else if (v.getId() == mTvPhoneStatus.getId()) {
-                    getOnItemClickListner().onItemPhone(getPosition());
+                    getOnItemClickListner().onItemPhone(getPosition()-1);
                 } else if (v.getId() == mTvSmsStatus.getId()) {
-                    getOnItemClickListner().onItemMsm(getPosition());
+                    getOnItemClickListner().onItemMsm(getPosition()-1);
                 } else if (v.getId() == mTvSoundStatus.getId()) {
-                    getOnItemClickListner().onItemLight(getPosition());
+                    getOnItemClickListner().onItemLight(getPosition()-1);
                 } else if (v.getId() == mTvEdt.getId()) {
-                    getOnItemClickListner().onItemEdit(getPosition());
+                    getOnItemClickListner().onItemEdit(getPosition()-1);
                 }
             }
         }

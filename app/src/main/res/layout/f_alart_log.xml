@@ -12,13 +12,33 @@
         layout="@layout/layout_search_log" />
 
     <RelativeLayout
-        android:layout_below="@id/include"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <include
+       <!-- <com.laian.freezer.view.NewHorizontalScrollView
+            android:fillViewport="true"
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:scrollbarAlwaysDrawHorizontalTrack="false" >
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants">
+                <include
+                    android:id="@+id/recycleV"
+                    layout="@layout/layout_recycle_base" />
+
+            </RelativeLayout>
+        </com.laian.freezer.view.NewHorizontalScrollView>-->
+
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/recycleV"
-            layout="@layout/layout_recycle_base" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"

@@ -27,8 +27,10 @@
         <activity android:name=".activity.ControlActivity"
             android:theme="@style/BaseTheme"/>
 
-        <activity android:name=".activity.PersonalInfomationActivity"></activity>
-        <activity android:name=".activity.InformationChangeActivity"/>
+        <activity android:name=".activity.PersonalInfomationActivity"
+            android:theme="@style/BaseTheme"></activity>
+        <activity android:name=".activity.InformationChangeActivity"
+            android:theme="@style/BaseTheme"/>
 
     </application>
 

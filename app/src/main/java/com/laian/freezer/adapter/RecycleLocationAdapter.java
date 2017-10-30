@@ -131,8 +131,6 @@ public class RecycleLocationAdapter extends BaseRecycleAdapter {
 
             mTvId.setTextColor(mTvId.getResources().getColor(R.color.black3));
             mTvName.setTextColor(mTvId.getResources().getColor(R.color.black3));
-            mTvEdt.setBackgroundColor(mTvId.getResources().getColor(R.color.colorPrimary));
-            mTvDel.setBackgroundColor(mTvId.getResources().getColor(R.color.colorAccent));
 
             mTvEdt.setOnClickListener(this);
             mTvDel.setOnClickListener(this);

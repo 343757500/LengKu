@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.laian.freezer.adapter.RecycleLogMessageAdapter2;
 import com.laian.freezer.bean.LogMessage;
 import com.laian.freezer.bean.Pagecount;
 import com.laian.freezer.bean.Pager;
+import com.laian.freezer.view.NoSuperRecycleView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,13 +40,14 @@ import cn.meiqu.baseproject.util.LogUtil;
 import cn.meiqu.baseproject.util.TimeUtil;
 import cn.meiqu.baseproject.view.superrecyclerview.SuperRecyclerView;
 
+import static com.laian.freezer.R.id.parent;
 import static com.laian.freezer.R.id.tv_start;
 
 /**
  * Created by zsp on 2017/9/13.
  */
 
-public class FragmentLogmessage2 extends BaseFragment implements RecycleLogMessageAdapter.ItemClickListener,View.OnClickListener {
+public class FragmentLogmessage2 extends BaseFragment implements RecycleLogMessageAdapter2.ItemClickListener,View.OnClickListener {
     Pager pager = new Pager();
     String className = getClass().getName();
     String action_getData = className + API.requestLogMessageUrl;
@@ -61,8 +64,6 @@ public class FragmentLogmessage2 extends BaseFragment implements RecycleLogMessa
     EditText tvRange;
     @BindView(R.id.tv_device)
     EditText tvDevice;
-    @BindView(R.id.recycleV)
-    SuperRecyclerView recycleV;
     @BindView(R.id.fab)
     FloatingActionButton fab;
     @BindView(R.id.fragment_containId)
@@ -88,18 +89,24 @@ public class FragmentLogmessage2 extends BaseFragment implements RecycleLogMessa
     int currentLog;
     private Object[] objects;
     private String ehmListBeanStr;
+    private RecyclerView recycleV;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.f_alart_log, null);
+        recycleV = (RecyclerView) view.findViewById(R.id.recycleV);
+
         ButterKnife.bind(this, view);
         initReceiver(new String[]{action_getData, action_update});
         adapter = new RecycleLogMessageAdapter2(getActivity(), TempAlarts);
-       // adapter.setOnItemClickListner(this);
-        recycleV.setAdapter(adapter);
-        recycleV.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+
+        recycleV.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recycleV.setAdapter(adapter);
+
+        //adapter.setHeaderView(inflater.from(getActivity()).inflate(R.layout.recycle_log_message_top,view));
+        adapter.setHeaderView(inflater.inflate(R.layout.recycle_log_message_top, container,false));
         tvStart.setOnClickListener(this);
         tvEnd.setOnClickListener(this);
         tvRange.setOnClickListener(this);
@@ -147,7 +154,7 @@ public class FragmentLogmessage2 extends BaseFragment implements RecycleLogMessa
     public void onResume() {
         super.onResume();
         // showProgressDialog();
-        pager.setPage("1");
+        pager.setPage("10");
         pager.setPageCapacity("100");
         ehmListBeanStr = new Gson().toJson(pager);
         HttpGetController.getInstance().getLogMessage(className, "pager", ehmListBeanStr);

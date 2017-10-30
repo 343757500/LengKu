@@ -156,8 +156,6 @@ public class RecycleRefrigertorManageAdapter extends BaseRecycleAdapter {
             mTvMinHum.setTextColor(mTvName.getResources().getColor(R.color.black3));
             mTvInterval.setTextColor(mTvName.getResources().getColor(R.color.black3));
             tv_syle.setTextColor(mTvName.getResources().getColor(R.color.black3));
-            mTvEdt.setBackgroundColor(mTvName.getResources().getColor(R.color.colorPrimary));
-            mTvDel.setBackgroundColor(mTvName.getResources().getColor(R.color.colorAccent));
 
             mTvEdt.setOnClickListener(this);
             mTvDel.setOnClickListener(this);

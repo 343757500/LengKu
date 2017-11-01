@@ -167,9 +167,9 @@ public class RecycleIpAdapter extends BaseRecycleAdapter {
             mTvName.setText("" + ip.getDiName());
             mTvIp.setText("" + ip.getDiAddress());
             mTvPort.setText("" + ip.getDiPort());
-            mTvAction.setBackgroundColor(mTvName.getResources().getColor(R.color.colorPrimary));
+           /* mTvAction.setBackgroundColor(mTvName.getResources().getColor(R.color.colorPrimary));
             mTvEdt.setBackgroundColor(mTvName.getResources().getColor(R.color.colorPrimary));
-            mTvDel.setBackgroundColor(mTvName.getResources().getColor(R.color.colorAccent));
+            mTvDel.setBackgroundColor(mTvName.getResources().getColor(R.color.colorAccent));*/
 
             if (ip.getDiIsConnect() == 0) {
                 mTvStatus.setText("" + "通信中断");

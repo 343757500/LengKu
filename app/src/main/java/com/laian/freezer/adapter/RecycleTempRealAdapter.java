@@ -1,6 +1,7 @@
 package com.laian.freezer.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,15 +83,18 @@ public class RecycleTempRealAdapter extends BaseRecycleAdapter {
             mTvTemp.setText(tempReal.getEhmTemp() + "℃");
             mTvWet.setText(tempReal.getEhmHum() + "%");
             if (tempReal.getEhmTemp() >= tempReal.getEhmMinTemp() && tempReal.getEhmTemp() <= tempReal.getEhmMaxTemp()) {
-                mTvTemp.setBackgroundColor(mTvTemp.getResources().getColor(R.color.colorPrimary));
+              //  mTvTemp.setBackgroundColor(mTvTemp.getResources().getColor(R.color.colorPrimary));
             } else {
-                mTvTemp.setBackgroundColor(mTvTemp.getResources().getColor(R.color.red));
+              //  mTvTemp.setBackgroundColor(mTvTemp.getResources().getColor(R.color.red));
+                mTvTemp.setTextColor(android.graphics.Color.RED);
             }
 
             if (tempReal.getEhmHum() >= tempReal.getEhmMinHum() && tempReal.getEhmTemp() <= tempReal.getEhmMaxHum()) {
-                mTvWet.setBackgroundColor(mTvTemp.getResources().getColor(R.color.colorPrimary));
+               // mTvWet.setBackgroundColor(mTvTemp.getResources().getColor(R.color.colorPrimary));
+
             } else {
-                mTvWet.setBackgroundColor(mTvTemp.getResources().getColor(R.color.red));
+               // mTvWet.setBackgroundColor(mTvTemp.getResources().getColor(R.color.red));
+                mTvWet.setTextColor(android.graphics.Color.RED);
             }
         }
 

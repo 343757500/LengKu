@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/activity_root"
+    style="@style/activity_roott"
     android:orientation="vertical">
 
-    <include layout="@layout/title_main" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/window_background">
+        android:background="@drawable/bg_login1">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -20,26 +19,36 @@
             android:paddingRight="40dp"
             android:paddingTop="90dp">
 
-            <LinearLayout
-                android:background="@drawable/fill_border"
-                android:layout_width="fill_parent"
+            <TextView
+                android:paddingTop="50dp"
+                android:text="冷库监控系统"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                />
+
+            <LinearLayout
+                android:background="@drawable/edit"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:paddingLeft="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/i_login_account" />
-
-                <TextView
+                    android:src="@mipmap/tubiao1" />
+               <!-- <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:text="账号："
                     android:textColor="@color/black3"
-                    android:textSize="13dp" />
+                    android:textSize="13dp" />-->
 
                 <cn.meiqu.baseproject.view.ClearEditText
                     android:id="@+id/edt_uesrname"
@@ -55,31 +64,32 @@
                     android:textSize="13dp" />
             </LinearLayout>
 
-            <View
+           <!-- <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="#d9d9d9" />
+                android:background="#d9d9d9" />-->
 
             <LinearLayout
-                android:background="@drawable/fill_border"
+                android:background="@drawable/edit"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:paddingLeft="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/i_login_pwd" />
+                    android:src="@mipmap/tubiao2" ></ImageView>
 
-                <TextView
+               <!-- <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:text="密码："
                     android:textColor="@color/black3"
-                    android:textSize="13dp" />
+                    android:textSize="13dp" />-->
 
                 <cn.meiqu.baseproject.view.ClearEditText
                     android:id="@+id/edt_pwd"
@@ -90,7 +100,7 @@
                     android:inputType="textPassword"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:textColor="@color/black3"
+                    android:textColor="@color/white"
                     android:textColorHint="@color/black9"
                     android:textSize="13dp" />
             </LinearLayout>
@@ -102,6 +112,7 @@
 
 
             <cn.meiqu.baseproject.view.RippleView
+                android:background="@drawable/bt_login"
                 android:id="@+id/ripple_login"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
@@ -110,7 +121,6 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:background="@color/colorPrimaryDark"
                     android:gravity="center"
                     android:text="登录"
                     android:textColor="@color/white"
@@ -125,7 +135,7 @@
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:text="若登录一直不成功，请点击右下角图标"
-                android:textColor="@color/black9"
+                android:textColor="@color/black3"
                 android:textSize="12dp" />
 
         </LinearLayout>

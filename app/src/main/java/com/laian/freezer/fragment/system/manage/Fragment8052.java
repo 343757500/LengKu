@@ -80,6 +80,7 @@ public class Fragment8052 extends FragmentAlert implements Recycle80Adapter.OnIt
         HttpGetController.getInstance().get8052List(className);
     }
 
+    @Override
     public void handleData(String data) {
         ArrayList<Device80> temps = new Gson().fromJson(data, new TypeToken<ArrayList<Device80>>() {
         }.getType());
@@ -345,6 +346,7 @@ public class Fragment8052 extends FragmentAlert implements Recycle80Adapter.OnIt
         }).setNegativeButton("取消", null).setView(body).show();
     }
 
+    @Override
     public void onClickAdd() {
         super.onClickAdd();
         showEdtDialog(-1);

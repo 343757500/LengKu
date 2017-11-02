@@ -6,7 +6,7 @@
     android:padding="8dp">
 
     <LinearLayout
-        android:background="@drawable/fill_border"
+        android:background="@drawable/blackground"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -33,7 +33,7 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:text="温度:"
-                android:textColor="@color/black3"
+                android:textColor="#f29254"
                 android:textSize="16dp" />
 
             <TextView
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="2dp"
-                android:textColor="@color/white"
+                android:textColor="#f29254"
                 android:textSize="16dp" />
         </LinearLayout>
 
@@ -58,7 +58,7 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:text="湿度:"
-                android:textColor="@color/black3"
+                android:textColor="#0dc9c7"
                 android:textSize="16dp" />
 
             <TextView
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="2dp"
-                android:textColor="@color/white"
+                android:textColor="#0dc9c7"
                 android:textSize="16dp" />
         </LinearLayout>
     </LinearLayout>

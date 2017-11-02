@@ -14,6 +14,7 @@ import com.google.gson.reflect.TypeToken;
 import com.laian.freezer.R;
 import com.laian.freezer.activity.IpSettingActivity;
 import com.laian.freezer.activity.MainActivity;
+import com.laian.freezer.adapter.DividerGridItemDecoration;
 import com.laian.freezer.adapter.RecycleHomeAdapter;
 import com.laian.freezer.bean.HomePage;
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ import cn.meiqu.baseproject.baseRecycle.BaseOnRecycleClickListener;
 import cn.meiqu.baseproject.baseUi.BaseActivity;
 import cn.meiqu.baseproject.baseUi.BaseFragment;
 import cn.meiqu.baseproject.httpGet.HttpGetController;
+
+import static cn.meiqu.baseproject.baseUi.BaseApp.mContext;
 
 
 /**
@@ -59,6 +62,11 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mRecycleV = (RecyclerView) findViewById(R.id.recycleV);
         adapter = new RecycleHomeAdapter(getActivity(), homePages);
         mRecycleV.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+
+
+        //添加recycleview的item分割线
+        mRecycleV.addItemDecoration(new DividerGridItemDecoration(mContext));
+
         mRecycleV.setAdapter(adapter);
         adapter.setClickListener(this);
     }

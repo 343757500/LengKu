@@ -93,6 +93,7 @@ public class RecycleHomeAdapter extends BaseRecycleAdapter {
             String absolutePath = API.getAbsolutePath("ktr-mrms" + iconUrl);
 
           //  x.image().bind(imageView, absolutePath);
+            imageView.setImageResource(R.drawable.bx);
         }
 
        /* @Override

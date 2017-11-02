@@ -81,9 +81,9 @@ public class RecycleRefrigeratorRealAdapter extends BaseRecycleAdapter {
                 mTvTemp.setText(ehmList.get(position).getEhmTemp() + "℃");
                // mTvWet.setText(ehmList.get(position).getEhmHum() + "%");
                 if (ehmList.get(position).getEhmTemp() >= ehmList.get(position).getEhmMinTemp() && ehmList.get(position).getEhmTemp() <= ehmList.get(position).getEhmMaxTemp()) {
-                    mTvTemp.setBackgroundColor(mTvTemp.getResources().getColor(R.color.colorPrimary));
+                   // mTvTemp.setBackgroundColor(mTvTemp.getResources().getColor(R.color.colorPrimary));
                 } else {
-                    mTvTemp.setBackgroundColor(mTvTemp.getResources().getColor(R.color.red));
+                    mTvTemp.setTextColor(android.graphics.Color.RED);
                 }
 
                 if (ehmList.get(position).getEhmHum() >= ehmList.get(position).getEhmMinHum() && ehmList.get(position).getEhmHum() <= ehmList.get(position).getEhmMaxHum()) {
